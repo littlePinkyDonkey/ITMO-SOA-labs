@@ -4,11 +4,8 @@ import dao.enums.Color;
 import dao.enums.DragonCharacter;
 import dao.enums.DragonType;
 import jakarta.validation.ValidationException;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.HibernateException;
 import org.hibernate.validator.constraints.*;
 
 import javax.persistence.*;
@@ -27,7 +24,7 @@ public class Dragon {
     @Column(name = "NAME", nullable = false)
     private String name; //Поле не может быть null, Строка не может быть пустой
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE})
     @JoinColumn(name = "COORDINATES_ID")
     private Coordinates coordinates; //Поле не может быть null
 
@@ -35,10 +32,10 @@ public class Dragon {
     private java.time.LocalDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
 
     @Column(name = "AGE")
-    private Integer age; //Значение поля должно быть больше 0, Поле может быть null
+    private Integer age = null; //Значение поля должно быть больше 0, Поле может быть null
 
     @Transient
-    private Color color; //Поле может быть null
+    private Color color = null; //Поле может быть null
     @Column(name = "COLOR")
     private String stringColor;
 
@@ -52,7 +49,7 @@ public class Dragon {
     @Column(name = "CHARACTER", nullable = false)
     private String stringCharacter;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "PERSON_ID")
     private Person killer; //Поле может быть null
 

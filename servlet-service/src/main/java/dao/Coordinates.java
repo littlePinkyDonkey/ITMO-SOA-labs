@@ -1,7 +1,6 @@
 package dao;
 
 import jakarta.validation.ValidationException;
-import jakarta.validation.constraints.Max;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

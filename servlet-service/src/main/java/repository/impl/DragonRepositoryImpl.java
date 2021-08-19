@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 import repository.DragonRepository;
 
 import java.util.ArrayList;
@@ -43,6 +44,55 @@ public class DragonRepositoryImpl implements DragonRepository {
 
         try {
             session.save(dragon);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw e;
+        }
+    }
+
+    @Override
+    public Dragon getDragonById(Long id) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        Dragon dragon = null;
+
+        try {
+            dragon = session.get(Dragon.class, id);
+
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+        }
+
+        return dragon;
+    }
+
+    @Override
+    public Dragon updateElement(Dragon newValue) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            session.update(newValue);
+            transaction.commit();
+            return newValue;
+        } catch (Exception e) {
+            transaction.rollback();
+            return null;
+        }
+    }
+
+    @Override
+    public void removeElement(Long id) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            session.createQuery("delete from dao.Dragon where id=:id")
+                    .setParameter("id", id)
+                    .executeUpdate();
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();

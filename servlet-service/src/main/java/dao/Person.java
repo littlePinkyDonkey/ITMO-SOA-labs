@@ -1,7 +1,6 @@
 package dao;
 
 import dao.enums.Color;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.HibernateException;
@@ -23,7 +22,7 @@ public class Person {
     private String name; //Поле не может быть null, Строка не может быть пустой
 
     @Column(name = "PASSPORT_ID")
-    private String passportID; //Поле может быть null
+    private String passportID = null; //Поле может быть null
 
     @Transient
     private Color eyeColor; //Поле не может быть null
