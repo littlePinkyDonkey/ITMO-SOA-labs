@@ -2,7 +2,6 @@ package filters;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
 import dto.DragonDto;
 
 import javax.servlet.*;
@@ -45,7 +44,7 @@ public class DragonFilter implements Filter {
         } catch (Exception e) {
             resp.setContentType("application/json");
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            servletResponse.getWriter().write(gson.toJson("Incorrect data!"));
+            resp.getWriter().write(gson.toJson("Incorrect data!"));
         }
     }
 

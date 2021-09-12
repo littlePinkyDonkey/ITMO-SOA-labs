@@ -90,7 +90,7 @@ public class DragonController extends HttpServlet {
         DragonDto dragon = (DragonDto) req.getAttribute("dragon");
 
         try {
-            dragonService.updateElement(dragon);
+            writer.write(gson.toJson(dragonService.updateElement(dragon)));
 
         } catch (Exception e) {
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

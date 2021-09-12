@@ -8,7 +8,10 @@ import repository.impl.DragonRepositoryImpl;
 import service.CoordinatesService;
 import service.DragonService;
 import service.PersonService;
+import util.OperandInfo;
+import util.tree.FilterBinaryTree;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DragonServiceImpl implements DragonService {
@@ -39,8 +42,25 @@ public class DragonServiceImpl implements DragonService {
     }
 
     @Override
-    public List<Dragon> getAll() {
-        return null;
+    public List<DragonDto> getAll(OperandInfo orderOperand, OperandInfo[] filterOperands) {
+        FilterBinaryTree filterBinaryTree = new FilterBinaryTree();
+
+        filterBinaryTree.buildTree(orderOperand, filterOperands);
+        filterBinaryTree.parseQueryParams(filterBinaryTree.getRoot());
+
+        String query = filterBinaryTree.getQuery().toString();
+        if (!query.contains("order by")) {
+            query = query.substring(0, query.length() - 5);
+        }
+
+        List<Dragon> dragons = dragonRepository.getAll(filterBinaryTree.getParams(), query);
+        List<DragonDto> result = new ArrayList<>();
+
+        for (Dragon d : dragons) {
+            result.add(dragonMapper.entityToDto(d));
+        }
+
+        return result;
     }
 
     @Override
@@ -66,9 +86,20 @@ public class DragonServiceImpl implements DragonService {
     }
 
     @Override
-    public void updateElement(DragonDto newValue) {
-        removeElement(newValue.getId());
-        save(newValue);
+    public DragonDto updateElement(DragonDto newValue) {
+        Dragon dragon = dragonMapper.dtoToEntity(newValue);
+
+        DragonDto updatedValue;
+        try {
+             updatedValue = dragonMapper.entityToDto(dragonRepository.updateElement(dragon));
+
+            if (updatedValue == null) {
+                throw new NullPointerException("Fail to update data");
+            }
+        } catch (NullPointerException e) {
+            throw e;
+        }
+        return updatedValue;
     }
 
     @Override

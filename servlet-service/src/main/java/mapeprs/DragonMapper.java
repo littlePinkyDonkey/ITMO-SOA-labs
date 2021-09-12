@@ -18,8 +18,11 @@ public class DragonMapper {
         dragon.setCoordinates(coordinatesMapper.dtoToEntity(dto.getCoordinates()));
         dragon.setCreationDate(dto.getCreationDate());
         dragon.setAge(dto.getAge());
+        dragon.setStringColor(Color.of(dto.getColor()).getDescription());
         dragon.setColor(Color.of(dto.getColor()));
+        dragon.setStringType(DragonType.of(dto.getType()).getDescription());
         dragon.setType(DragonType.of(dto.getType()));
+        dragon.setStringCharacter(DragonCharacter.of(dto.getCharacter()).getDescription());
         dragon.setCharacter(DragonCharacter.of(dto.getCharacter()));
         dragon.setKiller(personMapper.dtoToEntity(dto.getKiller()));
 

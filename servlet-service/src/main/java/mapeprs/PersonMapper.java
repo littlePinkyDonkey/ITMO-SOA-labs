@@ -13,7 +13,9 @@ public class PersonMapper {
         person.setName(dto.getName());
         person.setPassportID(dto.getPassportID());
         person.setEyeColor(Color.of(dto.getEyeColor()));
+        person.setStringEyeColor(Color.of(dto.getEyeColor()).getDescription());
         person.setHairColor(Color.of(dto.getHairColor()));
+        person.setStringHairColor(Color.of(dto.getHairColor()).getDescription());
 
         return person;
     }

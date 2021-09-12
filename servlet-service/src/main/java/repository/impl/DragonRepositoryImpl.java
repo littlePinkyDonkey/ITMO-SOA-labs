@@ -8,8 +8,11 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 import repository.DragonRepository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class DragonRepositoryImpl implements DragonRepository {
     private final SessionFactory sessionFactory;
@@ -19,15 +22,40 @@ public class DragonRepositoryImpl implements DragonRepository {
     }
 
     @Override
-    public List<Dragon> getAll() {
+    public List<Dragon> getAll(Map<String, String> parameters, String stringQuery) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        List<Dragon> dragons = new ArrayList<>();
+        List<Dragon> dragons;
 
         try {
 
-            dragons = session.createQuery("FROM DRAGONS").list();
+            Query query = session.createQuery(stringQuery);
+
+            Iterator<Map.Entry<String, String >> iterator = parameters.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<String, String> currentElement = iterator.next();
+                String key = currentElement.getKey();
+                String value = currentElement.getValue();
+
+                if (key.equals("dragon_id")) {
+                    query.setParameter(key, Long.parseLong(value));
+                } else if (key.equals("coordinate_x") || key.equals("dragon_age")) {
+                    query.setParameter(key, Integer.parseInt(value));
+                } else if (key.equals("coordinate_y")) {
+                    query.setParameter(key, Double.parseDouble(value));
+                } else if (key.equals("dragon_creation_date")) {
+                    query.setParameter(key, LocalDateTime.parse(value));
+                } else {
+                    query.setParameter(key, value);
+                }
+            }
+
+            dragons = query.list();
+
+//            session.createQuery("FROM DRAGONS d where killer.passportID=:killer_passport  order by id")
+//                    .setParameter("killer_passport", "dasdasd")
+//                    .list();
 
             transaction.commit();
         } catch (Exception e) {
@@ -80,7 +108,7 @@ public class DragonRepositoryImpl implements DragonRepository {
             return newValue;
         } catch (Exception e) {
             transaction.rollback();
-            return null;
+            throw new NullPointerException(e.getCause().getMessage());
         }
     }
 
