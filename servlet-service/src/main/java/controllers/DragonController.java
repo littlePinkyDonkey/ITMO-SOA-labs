@@ -55,9 +55,10 @@ public class DragonController extends HttpServlet {
 
         try {
 
-            dragonService.save(dragon);
+            DragonDto savedDragon = dragonService.save(dragon);
 
             resp.setStatus(HttpServletResponse.SC_CREATED);
+            writer.write(gson.toJson(savedDragon));
         } catch (Exception e) {
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             writer.write(gson.toJson(e.getMessage()));

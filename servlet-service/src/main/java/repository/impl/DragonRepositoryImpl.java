@@ -9,7 +9,6 @@ import org.hibernate.query.Query;
 import repository.DragonRepository;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -66,6 +65,23 @@ public class DragonRepositoryImpl implements DragonRepository {
     }
 
     @Override
+    public List<Dragon> getAll() {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        List<Dragon> dragons;
+
+        try {
+            dragons = session.createQuery("from DRAGONS").list();
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw e;
+        }
+        return dragons;
+    }
+
+    @Override
     public void save(Dragon dragon) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -113,12 +129,13 @@ public class DragonRepositoryImpl implements DragonRepository {
     }
 
     @Override
-    public void removeElement(Long id) {
+    public int removeElement(Long id) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
+        int updated;
         try {
-            session.createQuery("delete from dao.Dragon where id=:id")
+            updated = session.createQuery("delete from dao.Dragon where id=:id")
                     .setParameter("id", id)
                     .executeUpdate();
             transaction.commit();
@@ -126,5 +143,24 @@ public class DragonRepositoryImpl implements DragonRepository {
             transaction.rollback();
             throw e;
         }
+        return updated;
+    }
+
+    @Override
+    public int removeElementByCharacter(String character) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        int updated;
+        try {
+            updated = session.createQuery("delete from dao.Dragon where character=:character")
+                    .setParameter("character", character)
+                    .executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw e;
+        }
+        return updated;
     }
 }

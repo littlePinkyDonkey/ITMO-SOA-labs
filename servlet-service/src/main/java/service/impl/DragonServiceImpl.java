@@ -44,27 +44,41 @@ public class DragonServiceImpl implements DragonService {
     @Override
     public List<DragonDto> getAll(OperandInfo orderOperand, OperandInfo[] filterOperands) {
         FilterBinaryTree filterBinaryTree = new FilterBinaryTree();
-
-        filterBinaryTree.buildTree(orderOperand, filterOperands);
-        filterBinaryTree.parseQueryParams(filterBinaryTree.getRoot());
-
-        String query = filterBinaryTree.getQuery().toString();
-        if (!query.contains("order by")) {
-            query = query.substring(0, query.length() - 5);
-        }
-
-        List<Dragon> dragons = dragonRepository.getAll(filterBinaryTree.getParams(), query);
         List<DragonDto> result = new ArrayList<>();
 
-        for (Dragon d : dragons) {
-            result.add(dragonMapper.entityToDto(d));
+        if (orderOperand != null || filterOperands != null) {
+
+            filterBinaryTree.buildTree(orderOperand, filterOperands);
+            filterBinaryTree.parseQueryParams(filterBinaryTree.getRoot());
+
+            String query = filterBinaryTree.getQuery().toString();
+            if (!query.contains("order by")) {
+                query = query.substring(0, query.length() - 5);
+            }
+
+            List<Dragon> dragons = dragonRepository.getAll(filterBinaryTree.getParams(), query);
+
+            for (Dragon d : dragons) {
+                result.add(dragonMapper.entityToDto(d));
+            }
+        } else {
+            List<Dragon> dragons = dragonRepository.getAll();
+
+            for (Dragon d : dragons) {
+                result.add(dragonMapper.entityToDto(d));
+            }
         }
 
         return result;
     }
 
     @Override
-    public void save(DragonDto dto) {
+    public List<Dragon> getAll() {
+        return dragonRepository.getAll();
+    }
+
+    @Override
+    public DragonDto save(DragonDto dto) {
         Dragon dragon = dragonMapper.dtoToEntity(dto);
 
         if (dragon.getKiller() != null) {
@@ -72,6 +86,8 @@ public class DragonServiceImpl implements DragonService {
         }
         coordinatesService.save(dragon.getCoordinates());
         dragonRepository.save(dragon);
+
+        return dragonMapper.entityToDto(dragon);
     }
 
     @Override
@@ -109,5 +125,22 @@ public class DragonServiceImpl implements DragonService {
         dragonRepository.removeElement(id);
         coordinatesService.removeElement(dragon.getCoordinates().getCoordinatesId());
         personService.removeElement(id, dragon.getKiller().getPersonId());
+    }
+
+    @Override
+    public int removeElementByCharacter(String character) {
+        return dragonRepository.removeElementByCharacter(character);
+    }
+
+    @Override
+    public Integer findSum() {
+        int sum = 0;
+        List<Dragon> dragons = dragonRepository.getAll();
+
+        for (Dragon d : dragons) {
+            sum += d.getAge();
+        }
+
+        return sum;
     }
 }
