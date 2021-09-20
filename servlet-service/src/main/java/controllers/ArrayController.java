@@ -36,8 +36,13 @@ public class ArrayController extends HttpServlet {
         OperandInfo orderOperand = (OperandInfo) req.getAttribute("order_by");
         OperandInfo[] filterOperands = (OperandInfo []) req.getAttribute("filter_by");
 
-        List<DragonDto> s = dragonService.getAll(orderOperand, filterOperands);
+        try {
+            List<DragonDto> s = dragonService.getAll(orderOperand, filterOperands);
 
-        writer.write(gson.toJson(s));
+            writer.write(gson.toJson(s));
+        } catch (Exception e) {
+            resp.setStatus(500);
+            writer.write(gson.toJson("Illegal filter parameter!"));
+        }
     }
 }

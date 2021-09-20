@@ -123,8 +123,6 @@ public class DragonServiceImpl implements DragonService {
         Dragon dragon = dragonRepository.getDragonById(id);
 
         dragonRepository.removeElement(id);
-        coordinatesService.removeElement(dragon.getCoordinates().getCoordinatesId());
-        personService.removeElement(id, dragon.getKiller().getPersonId());
     }
 
     @Override
