@@ -1,0 +1,138 @@
+<button mat-raised-button (click)="openDialog()">Add Dragon</button>
+
+<mat-table [dataSource]="dragonList" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="coordinates">
+      <mat-header-cell *matHeaderCellDef> Coordinates </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="coordinate">{{element.coordinates}}</mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="creation">
+      <mat-header-cell *matHeaderCellDef> Creation Date</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+          {{element.creationDate.date.day}}.{{element.creationDate.date.month}}.{{element.creationDate.date.year}}
+          {{element.creationDate.time.hour}}:{{element.creationDate.time.minute}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="age">
+        <mat-header-cell *matHeaderCellDef> Age </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.age}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="color">
+        <mat-header-cell *matHeaderCellDef> Color </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.color}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+        <mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="character">
+        <mat-header-cell *matHeaderCellDef> Character </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.character}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="killer">
+        <mat-header-cell *matHeaderCellDef> Killer </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.killer}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <input type="button" value="Delete" (click)="deleteDragon(element.id)" class="btn btn-danger"/>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <input type="button" value="Edit" (click)="editDragon(element)" class="btn btn-default"/>
+        </mat-cell>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+
+<!-- <input type="button" (click)="print()" value="Print">
+<div>
+    <input type="button" value="Add" class="btn btn-default"/>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Coordinates</td>
+            <td>Creation Date</td>
+            <td>Age</td>
+            <td>Color</td>
+            <td>Type</td>
+            <td>Character</td>
+            <td>Killer</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let dragon of dragonList">
+            <ng-template [ngTemplateOutlet]="loadTemplate(dragon)" [ngTemplateOutletContext]="{ $implicit: dragon}">
+            </ng-template>
+        </tr>
+    </tbody>
+</table>
+
+
+<ng-template #readOnlyTemplate let-dragon>
+    <td>{{dragon.id}}</td>
+    <td>{{dragon.name}}</td>
+    <td>{{dragon.coordinates}}</td>
+    <td>
+        {{dragon.creationDate.date.day}}.{{dragon.creationDate.date.month}}.{{dragon.creationDate.date.year}}
+        {{dragon.creationDate.time.hour}}:{{dragon.creationDate.time.minute}}
+    </td>
+    <td>{{dragon.age}}</td>
+    <td>{{dragon.color}}</td>
+    <td>{{dragon.type}}</td>
+    <td>{{dragon.character}}</td>
+    <td>{{dragon.killer}}</td>
+    <td>
+        <input type="button" value="Edit" class="btn btn-default" />
+    </td>
+    <td>
+        <input type="button" value="Delete" class="btn btn-danger" />
+    </td>
+</ng-template> -->
+   
+<!-- шаблон для редактирования -->
+<!-- <ng-template #editTemplate> -->
+    <!-- <td>
+        <input type="number" [(ngModel)]="editedUser._id" readonly disabled class="form-control" />
+    </td>
+    <td>
+        <input type="text" [(ngModel)]="editedUser.name" class="form-control" />
+    </td>
+    <td>
+        <input type="number" [(ngModel)]="editedUser.age" class="form-control" />
+    </td> -->
+    <!-- <td>
+        <input type="button" value="Save" class="btn btn-success" />
+    </td>
+    <td>
+        <input type="button" value="Cancel" class="btn btn-warning" />
+    </td>
+</ng-template> -->

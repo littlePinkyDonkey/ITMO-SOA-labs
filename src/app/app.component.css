@@ -1,0 +1,27 @@
+.title {
+    color: rgba(255, 248, 220, 0.767);
+    font-size: 2.5rem;
+}
+
+.main {
+    background-color: azure;
+}
+
+.header, .footer {
+    background-color: rgba(0, 0, 0, 0.836);
+    height: 5rem;
+    padding: 0.5%;
+    display: flex;
+}
+
+.header {
+    align-items: center;
+    justify-content: flex-start;
+    border-bottom-left-radius: 20%;
+    border-bottom-right-radius: 20%;
+}
+
+.footer {
+    border-top-left-radius: 20%;
+    border-top-right-radius: 20%;
+}

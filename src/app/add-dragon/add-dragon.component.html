@@ -1,0 +1,50 @@
+<h1 mat-dialog-title>{{dialogTitle}}</h1>
+
+<mat-dialog-content>
+    
+    <mat-form-field appearance="fill">
+        <mat-label>Dragon name</mat-label>
+        <input type="text" matInput [(ngModel)]="data.name" required>
+    </mat-form-field>
+
+    <!-- <mat-form-field appearance="fill">
+        <mat-label>Coordinates</mat-label>
+        <input matInput [(ngModel)]="data.age">
+    </mat-form-field> -->
+
+    <mat-form-field appearance="fill">
+        <mat-label>Creation date</mat-label>
+        <input type="date" matInput [(ngModel)]="data.creationDate">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Dragon age</mat-label>
+        <input type="number" matInput [(ngModel)]="data.age" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Color</mat-label>
+        <input type="text" matInput [(ngModel)]="data.color" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Type</mat-label>
+        <input type="text" matInput [(ngModel)]="data.type" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Character</mat-label>
+        <input type="text" matInput [(ngModel)]="data.character" required>
+    </mat-form-field>
+
+    <!-- <mat-form-field appearance="fill">
+        <mat-label>Killer</mat-label>
+        <input type="number" matInput [(ngModel)]="data.age">
+    </mat-form-field> -->
+
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Cancel</button>
+  <button mat-button (click)="save()" cdkFocusInitial>Add</button>
+</div>
