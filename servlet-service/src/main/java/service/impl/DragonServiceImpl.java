@@ -81,10 +81,6 @@ public class DragonServiceImpl implements DragonService {
     public DragonDto save(DragonDto dto) {
         Dragon dragon = dragonMapper.dtoToEntity(dto);
 
-        if (dragon.getKiller() != null) {
-            personService.save(dragon.getKiller());
-        }
-        coordinatesService.save(dragon.getCoordinates());
         dragonRepository.save(dragon);
 
         return dragonMapper.entityToDto(dragon);

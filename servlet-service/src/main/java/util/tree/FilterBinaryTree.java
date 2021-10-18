@@ -16,7 +16,9 @@ public class FilterBinaryTree {
     public void buildTree(OperandInfo orderOperand, OperandInfo[] filterOperands) {
         if (orderOperand != null) {
             root.setRightChild(new Node(orderOperand, true));
-            addNodes(filterOperands, 0);
+            if (filterOperands != null) {
+                addNodes(filterOperands, 0);
+            }
         } else {
             root.setRightChild(new Node(filterOperands[0]));
             addNodes(filterOperands, 1);
@@ -56,12 +58,13 @@ public class FilterBinaryTree {
 
         if (root.getData() != null) {
             if (root.isOrderBy()) {
-                query = query.delete(query.length() - 5, query.length());
+                query = query.delete(query.length() - 6, query.length());
                 query.append(String.format(" order by %s", operandInfo.getFilterOperands().getFiledName()));
 //                queryParams.add(String.format("order by %s", operandInfo.getFilterOperands().getFiledName()));
             } else {
                 params.put(operandInfo.getFilterOperands().getOperand(), operandInfo.getFilterValue());
-                query.append(String.format("%s%s:%s and ", operandInfo.getFilterOperands().getFiledName(), operandInfo.getOperator(), operandInfo.getFilterOperands().getOperand()));
+                //two spaces after and because of -6 in upper if() statement
+                query.append(String.format("%s%s:%s and  ", operandInfo.getFilterOperands().getFiledName(), operandInfo.getOperator(), operandInfo.getFilterOperands().getOperand()));
 //                queryParams.add(String.format("%s%s%s ", operandInfo.getFilterOperands().getFiledName(), operandInfo.getOperator(), operandInfo.getFilterValue()));
             }
         }

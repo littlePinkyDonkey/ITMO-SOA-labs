@@ -43,8 +43,8 @@ public class DragonFilter implements Filter {
             filterChain.doFilter(req, resp);
         } catch (Exception e) {
             resp.setContentType("application/json");
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.getWriter().write(gson.toJson("Incorrect data!"));
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.getWriter().write(gson.toJson("Incorrect data! Please check your request"));
         }
     }
 

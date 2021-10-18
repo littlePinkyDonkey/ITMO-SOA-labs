@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("/main")
+@WebServlet("/")
 public class ArrayController extends HttpServlet {
     private final GsonBuilder gsonBuilder;
     private final DragonService dragonService;

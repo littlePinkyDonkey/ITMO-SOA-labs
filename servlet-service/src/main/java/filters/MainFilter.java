@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter("/main")
+@WebFilter("/")
 public class MainFilter implements Filter {
     private final GsonBuilder gsonBuilder = new GsonBuilder();
     private Gson gson;
@@ -51,8 +51,8 @@ public class MainFilter implements Filter {
 
         } catch (JsonSyntaxException e) {
             resp.setContentType("application/json");
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.getWriter().write(gson.toJson("Incorrect filter request!"));
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.getWriter().write(gson.toJson("Incorrect filters!"));
         }
     }
 

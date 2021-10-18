@@ -87,7 +87,12 @@ public class DragonRepositoryImpl implements DragonRepository {
         Transaction transaction = session.beginTransaction();
 
         try {
+            if (dragon.getKiller() != null) {
+                session.save(dragon.getKiller());
+            }
+            session.save(dragon.getCoordinates());
             session.save(dragon);
+
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();

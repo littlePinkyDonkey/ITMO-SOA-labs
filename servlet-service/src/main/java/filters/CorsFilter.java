@@ -18,7 +18,7 @@ public class CorsFilter implements Filter {
 
         resp.addHeader("Access-Control-Allow-Origin", "*");
         resp.addHeader("Access-Control-Allow-Headers", "Content-Type");
-        resp.addHeader("Allow", "*");
+        resp.addHeader("Allow", "GET, POST, PUT, DELETE");
 
         chain.doFilter(request, resp);
     }
