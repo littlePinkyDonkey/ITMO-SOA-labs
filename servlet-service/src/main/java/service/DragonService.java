@@ -2,6 +2,7 @@ package service;
 
 import dao.Dragon;
 import dto.DragonDto;
+import expetions.UserDataException;
 import util.OperandInfo;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public interface DragonService {
 
     DragonDto updateElement(DragonDto newValue);
 
-    void removeElement(Long id);
+    void removeElement(Long id) throws UserDataException;
 
     int removeElementByCharacter(String character);
 

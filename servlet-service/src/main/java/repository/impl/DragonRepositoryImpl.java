@@ -1,13 +1,16 @@
 package repository.impl;
 
 import dao.Dragon;
+import jakarta.validation.ValidationException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.query.Query;
 import repository.DragonRepository;
 
+import javax.persistence.OptimisticLockException;
 import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.List;
@@ -82,7 +85,7 @@ public class DragonRepositoryImpl implements DragonRepository {
     }
 
     @Override
-    public void save(Dragon dragon) {
+    public void save(Dragon dragon) throws ConstraintViolationException, ValidationException {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
@@ -94,7 +97,7 @@ public class DragonRepositoryImpl implements DragonRepository {
             session.save(dragon);
 
             transaction.commit();
-        } catch (Exception e) {
+        } catch (ValidationException e) {
             transaction.rollback();
             throw e;
         }
@@ -127,9 +130,9 @@ public class DragonRepositoryImpl implements DragonRepository {
             session.update(newValue);
             transaction.commit();
             return newValue;
-        } catch (Exception e) {
+        } catch (ValidationException | OptimisticLockException e) {
             transaction.rollback();
-            throw new NullPointerException(e.getCause().getMessage());
+            throw e;
         }
     }
 

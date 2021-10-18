@@ -36,14 +36,15 @@ public class RemoveElementsController extends HttpServlet {
             int updated = dragonService.removeElementByCharacter(character);
 
             if (updated > 0) {
-                resp.setStatus(200);
+                resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
             } else {
-                writer.write(gson.toJson("No elements found"));
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                writer.write(gson.toJson("No elements with such character"));
             }
 
         } else {
-            resp.setStatus(500);
-            writer.write(gson.toJson("Incorrect request!"));
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            writer.write(gson.toJson("Character must be specified"));
         }
     }
 }

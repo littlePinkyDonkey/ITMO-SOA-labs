@@ -28,8 +28,16 @@ public class Coordinates {
 
     @PrePersist
     public void prePersist() {
-        if (y >= 350) {
-            throw new ValidationException("Y must be 350 or less");
+        if (y != null) {
+            if (y >= 350) {
+                throw new ValidationException("Y must be 350 or less");
+            }
+        } else {
+            throw new ValidationException("Y must not be empty");
+        }
+
+        if (x == null) {
+            throw new ValidationException("X must not be empty");
         }
     }
 }

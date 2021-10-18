@@ -2,7 +2,11 @@ package service.impl;
 
 import dao.Dragon;
 import dto.DragonDto;
+import expetions.UserDataException;
+import jakarta.validation.Validation;
+import jakarta.validation.ValidationException;
 import mapeprs.DragonMapper;
+import org.hibernate.exception.ConstraintViolationException;
 import repository.DragonRepository;
 import repository.impl.DragonRepositoryImpl;
 import service.CoordinatesService;
@@ -102,23 +106,20 @@ public class DragonServiceImpl implements DragonService {
         Dragon dragon = dragonMapper.dtoToEntity(newValue);
 
         DragonDto updatedValue;
-        try {
-             updatedValue = dragonMapper.entityToDto(dragonRepository.updateElement(dragon));
+        updatedValue = dragonMapper.entityToDto(dragonRepository.updateElement(dragon));
 
-            if (updatedValue == null) {
-                throw new NullPointerException("Fail to update data");
-            }
-        } catch (NullPointerException e) {
-            throw e;
-        }
         return updatedValue;
     }
 
     @Override
-    public void removeElement(Long id) {
+    public void removeElement(Long id) throws UserDataException {
         Dragon dragon = dragonRepository.getDragonById(id);
 
-        dragonRepository.removeElement(id);
+        int removed = dragonRepository.removeElement(id);
+
+        if (removed == 0) {
+            throw new UserDataException("No dragon with such id");
+        }
     }
 
     @Override

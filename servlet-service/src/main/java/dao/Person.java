@@ -1,6 +1,7 @@
 package dao;
 
 import dao.enums.Color;
+import jakarta.validation.ValidationException;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.HibernateException;
@@ -43,11 +44,19 @@ public class Person {
 
     @PrePersist
     public void prePersist() {
+        if (name == null) {
+            throw new ValidationException("Name must not be null!");
+        }
+
+        if (name.isEmpty()) {
+            throw new ValidationException("Name must not be empty");
+        }
+
         if (eyeColor != null && hairColor != null) {
             this.stringEyeColor = eyeColor.getDescription();
             this.stringHairColor = hairColor.getDescription();
         } else {
-            throw new HibernateException("Invalid data");
+            throw new HibernateException("Eye color and Hair color must not be null");
         }
     }
 

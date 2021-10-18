@@ -5,9 +5,13 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import dao.Dragon;
 import dto.DragonDto;
+import expetions.UserDataException;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.ValidationException;
 import service.DragonService;
 import service.impl.DragonServiceImpl;
 
+import javax.persistence.OptimisticLockException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -59,9 +63,11 @@ public class DragonController extends HttpServlet {
 
             resp.setStatus(HttpServletResponse.SC_CREATED);
             writer.write(gson.toJson(savedDragon));
+        } catch (ValidationException e) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            writer.write(gson.toJson(e.getMessage()));
         } catch (Exception e) {
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            writer.write(gson.toJson(e.getMessage()));
         }
     }
 
@@ -75,6 +81,10 @@ public class DragonController extends HttpServlet {
         Long id = (Long) req.getAttribute("id");
         try {
             dragonService.removeElement(id);
+            resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+        } catch (UserDataException e) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            writer.write(gson.toJson(e.getMessage()));
         } catch (Exception e) {
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             writer.write(gson.toJson(e.getMessage()));
@@ -93,9 +103,12 @@ public class DragonController extends HttpServlet {
         try {
             writer.write(gson.toJson(dragonService.updateElement(dragon)));
 
-        } catch (Exception e) {
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        } catch (ValidationException e) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             writer.write(gson.toJson(e.getMessage()));
+        } catch (OptimisticLockException e) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            writer.write(gson.toJson("Update failed! Updated element does not exists"));
         }
     }
 }

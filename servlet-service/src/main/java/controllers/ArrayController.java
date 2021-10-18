@@ -41,7 +41,7 @@ public class ArrayController extends HttpServlet {
 
             writer.write(gson.toJson(s));
         } catch (Exception e) {
-            resp.setStatus(500);
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             writer.write(gson.toJson("Illegal filter parameter!"));
         }
     }

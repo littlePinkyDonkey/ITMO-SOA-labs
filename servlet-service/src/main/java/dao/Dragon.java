@@ -64,6 +64,14 @@ public class Dragon {
 
     @PrePersist
     public void prePersist() {
+        if (name == null) {
+            throw new ValidationException("Name must not be null!");
+        }
+
+        if (name.isEmpty()) {
+            throw new ValidationException("Name must not be empty");
+        }
+
         if (creationDate == null) {
             this.creationDate = LocalDateTime.now();
         }
@@ -72,8 +80,10 @@ public class Dragon {
             this.stringColor = color.getDescription();
         }
 
-        if (age <= 0) {
-            throw new ValidationException("Age must be bigger than 0");
+        if (age != null) {
+            if (age <= 0) {
+                throw new ValidationException("Age must be bigger than 0");
+            }
         }
 
         if (coordinates == null) {
