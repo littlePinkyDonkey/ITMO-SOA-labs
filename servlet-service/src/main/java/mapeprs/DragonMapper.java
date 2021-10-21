@@ -5,6 +5,7 @@ import dao.enums.Color;
 import dao.enums.DragonCharacter;
 import dao.enums.DragonType;
 import dto.DragonDto;
+import dto.PersonDto;
 
 public class DragonMapper {
     private final CoordinatesMapper coordinatesMapper = new CoordinatesMapper();
@@ -24,7 +25,12 @@ public class DragonMapper {
         dragon.setType(DragonType.of(dto.getType()));
         dragon.setStringCharacter(DragonCharacter.of(dto.getCharacter()).getDescription());
         dragon.setCharacter(DragonCharacter.of(dto.getCharacter()));
-        dragon.setKiller(personMapper.dtoToEntity(dto.getKiller()));
+
+        if (dto.getKiller().getEyeColor().isEmpty()) {
+            dragon.setKiller(null);
+        } else {
+            dragon.setKiller(personMapper.dtoToEntity(dto.getKiller()));
+        }
 
         return dragon;
     }
@@ -40,7 +46,12 @@ public class DragonMapper {
         dto.setColor(entity.getStringColor());
         dto.setType(entity.getStringType());
         dto.setCharacter(entity.getStringCharacter());
-        dto.setKiller(personMapper.entityToDto(entity.getKiller()));
+
+        if (entity.getKiller() != null) {
+            dto.setKiller(personMapper.entityToDto(entity.getKiller()));
+        } else {
+            dto.setKiller(null);
+        }
 
         return dto;
     }

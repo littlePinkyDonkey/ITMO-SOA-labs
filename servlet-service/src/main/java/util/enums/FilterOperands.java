@@ -17,7 +17,7 @@ public enum FilterOperands {
     DRAGON_COLOR("dragon_color", "color"),
     DRAGON_TYPE("dragon_type", "type"),
     DRAGON_CHARACTER("dragon_character", "character"),
-    KILLER_NAME("dragon_name", "killer.name"),
+    KILLER_NAME("killer_name", "killer.name"),
     KILLER_PASSPORT_ID("killer_passport", "killer.passportID"),
     KILLER_EYE_COLOR("killer_eye", "killer.stringEyeColor"),
     KILLER_HAIR_COLOR("killer_hair", "killer.stringEyeColor");

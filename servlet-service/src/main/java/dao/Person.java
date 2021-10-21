@@ -45,18 +45,18 @@ public class Person {
     @PrePersist
     public void prePersist() {
         if (name == null) {
-            throw new ValidationException("Name must not be null!");
+            throw new ValidationException("Person name must not be null!");
         }
 
         if (name.isEmpty()) {
-            throw new ValidationException("Name must not be empty");
+            throw new ValidationException("Person name must not be empty");
         }
 
         if (eyeColor != null && hairColor != null) {
             this.stringEyeColor = eyeColor.getDescription();
             this.stringHairColor = hairColor.getDescription();
         } else {
-            throw new HibernateException("Eye color and Hair color must not be null");
+            throw new HibernateException("Person eye color and hair color must not be null");
         }
     }
 

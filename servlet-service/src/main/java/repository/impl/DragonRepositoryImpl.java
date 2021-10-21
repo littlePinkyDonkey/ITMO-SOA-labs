@@ -143,15 +143,20 @@ public class DragonRepositoryImpl implements DragonRepository {
 
         int updated;
         try {
-            updated = session.createQuery("delete from dao.Dragon where id=:id")
-                    .setParameter("id", id)
-                    .executeUpdate();
+            Dragon d = session.get(Dragon.class, id);
+
+            session.remove(d);
+            session.remove(d.getCoordinates());
+
+//            updated = session.createQuery("delete from dao.Dragon where id=:id")
+//                    .setParameter("id", id)
+//                    .executeUpdate();
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
             throw e;
         }
-        return updated;
+        return 1;
     }
 
     @Override

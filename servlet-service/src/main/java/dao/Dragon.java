@@ -65,11 +65,11 @@ public class Dragon {
     @PrePersist
     public void prePersist() {
         if (name == null) {
-            throw new ValidationException("Name must not be null!");
+            throw new ValidationException("Dragon name must not be null!");
         }
 
         if (name.isEmpty()) {
-            throw new ValidationException("Name must not be empty");
+            throw new ValidationException("Dragon name must not be empty");
         }
 
         if (creationDate == null) {
@@ -82,19 +82,19 @@ public class Dragon {
 
         if (age != null) {
             if (age <= 0) {
-                throw new ValidationException("Age must be bigger than 0");
+                throw new ValidationException("Dragon age must be bigger than 0");
             }
         }
 
         if (coordinates == null) {
-            throw new ValidationException("Coordinates must not be null!");
+            throw new ValidationException("Dragon coordinates must not be null!");
         }
 
         if (type != null && character != null) {
             this.stringType = type.getDescription();
             this.stringCharacter = character.getDescription();
         } else {
-            throw new ValidationException("Type and Character must not be null!");
+            throw new ValidationException("Dragon type and character must not be null!");
         }
     }
 
