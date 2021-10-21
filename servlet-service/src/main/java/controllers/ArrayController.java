@@ -35,9 +35,11 @@ public class ArrayController extends HttpServlet {
 
         OperandInfo orderOperand = (OperandInfo) req.getAttribute("order_by");
         OperandInfo[] filterOperands = (OperandInfo []) req.getAttribute("filter_by");
+        Integer page = (Integer) req.getAttribute("page");
+        Integer size = (Integer) req.getAttribute("size");
 
         try {
-            List<DragonDto> s = dragonService.getAll(orderOperand, filterOperands);
+            List<DragonDto> s = dragonService.getAll(orderOperand, filterOperands, page, size);
 
             writer.write(gson.toJson(s));
         } catch (Exception e) {

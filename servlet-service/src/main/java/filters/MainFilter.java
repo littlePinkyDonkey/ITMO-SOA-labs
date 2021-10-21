@@ -3,6 +3,7 @@ package filters;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
+import expetions.UserDataException;
 import util.OperandInfo;
 import util.enums.FilterOperands;
 
@@ -28,8 +29,13 @@ public class MainFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
 
+        resp.setContentType("application/json");
+
         String sortingOperand = req.getParameter("order_by");
         String filterOperand = req.getParameter("filter_by");
+
+        String pageNumber = req.getParameter("page");
+        String pageSize = req.getParameter("size");
 
         try {
 
@@ -47,12 +53,31 @@ public class MainFilter implements Filter {
                 req.setAttribute("filter_by", operands);
             }
 
+            if (pageNumber != null) {
+                Integer page = Integer.valueOf(pageNumber);
+                req.setAttribute("page", page);
+            } else {
+                req.setAttribute("page", 0);
+            }
+
+            if (pageSize != null) {
+                Integer size = Integer.valueOf(pageSize);
+                req.setAttribute("size", size);
+            } else {
+                req.setAttribute("size", 5);
+            }
+
             chain.doFilter(req, resp);
 
         } catch (JsonSyntaxException e) {
-            resp.setContentType("application/json");
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             resp.getWriter().write(gson.toJson("Incorrect filters!"));
+        } catch (UserDataException e) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.getWriter().write(gson.toJson(e.getMessage()));
+        } catch (NumberFormatException e) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.getWriter().write(gson.toJson("Incorrect page parameters!"));
         }
     }
 

@@ -8,7 +8,7 @@ import util.OperandInfo;
 import java.util.List;
 
 public interface DragonService {
-    List<DragonDto> getAll(OperandInfo orderOperand, OperandInfo[] filterOperands);
+    List<DragonDto> getAll(OperandInfo orderOperand, OperandInfo[] filterOperands, Integer page, Integer size);
 
     List<Dragon> getAll();
 

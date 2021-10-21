@@ -1,6 +1,7 @@
 package util;
 
 import com.google.gson.JsonSyntaxException;
+import expetions.UserDataException;
 import lombok.Data;
 import util.enums.FilterOperands;
 
@@ -10,7 +11,7 @@ public class OperandInfo {
     private String operator;
     private String filterValue;
 
-    public static OperandInfo initOperand(String filter) {
+    public static OperandInfo initOperand(String filter) throws UserDataException {
         OperandInfo operandInfo = new OperandInfo();
 
         int operatorPosition;
@@ -23,7 +24,7 @@ public class OperandInfo {
         } else {
             operandInfo.setFilterOperands(FilterOperands.of(filter));
             if (operandInfo.getFilterOperands() == null) {
-                throw new JsonSyntaxException("");
+                throw new UserDataException("Incorrect ordering parameter!");
             }
             return operandInfo;
         }

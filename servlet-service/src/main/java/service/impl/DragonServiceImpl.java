@@ -46,9 +46,10 @@ public class DragonServiceImpl implements DragonService {
     }
 
     @Override
-    public List<DragonDto> getAll(OperandInfo orderOperand, OperandInfo[] filterOperands) {
+    public List<DragonDto> getAll(OperandInfo orderOperand, OperandInfo[] filterOperands, Integer page, Integer size) {
         FilterBinaryTree filterBinaryTree = new FilterBinaryTree();
         List<DragonDto> result = new ArrayList<>();
+        List<Dragon> dragons;
 
         if (orderOperand != null || filterOperands != null) {
 
@@ -60,18 +61,16 @@ public class DragonServiceImpl implements DragonService {
                 query = query.substring(0, query.length() - 5);
             }
 
-            List<Dragon> dragons = dragonRepository.getAll(filterBinaryTree.getParams(), query);
-
-            for (Dragon d : dragons) {
-                result.add(dragonMapper.entityToDto(d));
-            }
+            dragons = dragonRepository.getAll(filterBinaryTree.getParams(), query);
         } else {
-            List<Dragon> dragons = dragonRepository.getAll();
-
-            for (Dragon d : dragons) {
-                result.add(dragonMapper.entityToDto(d));
-            }
+            dragons = dragonRepository.getAll();
         }
+
+        try {
+            for (int i = page * size; i < page * size + size; i++) {
+                result.add(dragonMapper.entityToDto(dragons.get(i)));
+            }
+        } catch (IndexOutOfBoundsException e) { }
 
         return result;
     }
