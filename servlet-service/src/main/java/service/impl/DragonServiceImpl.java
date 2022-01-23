@@ -137,4 +137,9 @@ public class DragonServiceImpl implements DragonService {
 
         return sum;
     }
+
+    @Override
+    public DragonDto getWithMinId() {
+        return dragonMapper.entityToDto(dragonRepository.getWithMinId());
+    }
 }

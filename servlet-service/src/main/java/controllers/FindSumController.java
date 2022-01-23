@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import service.DragonService;
 import service.impl.DragonServiceImpl;
+import util.GsonProvider;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,14 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/sum")
+@WebServlet("/api/sum")
 public class FindSumController extends HttpServlet {
     private final DragonService dragonService;
-    private final GsonBuilder gsonBuilder;
 
     public FindSumController() {
         this.dragonService = DragonServiceImpl.getInstance();
-        this.gsonBuilder = new GsonBuilder();
     }
 
     @Override
@@ -28,7 +27,7 @@ public class FindSumController extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        Gson gson = gsonBuilder.create();
+        Gson gson = GsonProvider.gson;
 
         writer.write(gson.toJson(dragonService.findSum()));
     }

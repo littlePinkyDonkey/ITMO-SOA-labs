@@ -52,7 +52,6 @@ public class ExtraOperationsServiceImpl implements ExtraOperationsService {
     public String findMinId() {
         Gson gson = gsonBuilder.create();
 
-        List<Dragon> dragons = dragonService.getAll();
-        return gson.toJson(dragons.get(0));
+        return gson.toJson(dragonService.getWithMinId());
     }
 }

@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import dto.DragonDto;
 import service.DragonService;
 import service.impl.DragonServiceImpl;
+import util.GsonProvider;
 import util.OperandInfo;
 
 import javax.servlet.ServletException;
@@ -16,13 +17,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("/")
+@WebServlet("/api")
 public class ArrayController extends HttpServlet {
-    private final GsonBuilder gsonBuilder;
     private final DragonService dragonService;
 
     public ArrayController() {
-        this.gsonBuilder = new GsonBuilder();
         this.dragonService = DragonServiceImpl.getInstance();
     }
 
@@ -31,7 +30,7 @@ public class ArrayController extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        Gson gson = gsonBuilder.create();
+        Gson gson = GsonProvider.gson;
 
         OperandInfo orderOperand = (OperandInfo) req.getAttribute("order_by");
         OperandInfo[] filterOperands = (OperandInfo []) req.getAttribute("filter_by");

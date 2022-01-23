@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/min")
+@WebServlet("/api/min")
 public class MinIdController extends HttpServlet {
     private final ExtraOperationsService extraOperationsService;
 

@@ -22,4 +22,6 @@ public interface DragonRepository {
     int removeElement(Long id);
 
     int removeElementByCharacter(String character);
+
+    Dragon getWithMinId();
 }

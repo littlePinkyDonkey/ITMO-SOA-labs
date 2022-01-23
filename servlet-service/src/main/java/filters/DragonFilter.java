@@ -1,24 +1,26 @@
 package filters;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 import dto.DragonDto;
+import util.GsonProvider;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.stream.Collectors;
 
-@WebFilter("/dragons")
+@WebFilter("/api/dragons")
 public class DragonFilter implements Filter {
-    private final GsonBuilder gsonBuilder = new GsonBuilder();
     private Gson gson;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        this.gson = gsonBuilder.create();
+        gson = GsonProvider.gson;
     }
 
     @Override
