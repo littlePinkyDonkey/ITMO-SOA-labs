@@ -63,6 +63,7 @@ public class Dragon {
     }
 
     @PrePersist
+    @PreUpdate
     public void prePersist() {
         if (name == null) {
             throw new ValidationException("Dragon name must not be null!");

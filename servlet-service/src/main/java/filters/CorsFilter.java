@@ -17,8 +17,9 @@ public class CorsFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) response;
 
         resp.addHeader("Access-Control-Allow-Origin", "*");
-        resp.addHeader("Access-Control-Allow-Headers", "Content-Type");
-        resp.addHeader("Allow", "GET, POST, PUT, DELETE");
+        resp.addHeader("Access-Control-Allow-Headers", "accept, authorization, content-type, x-requested-with");
+        resp.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, HEAD, OPTIONS");
+        resp.addHeader("Access-Control-Allow-Credentials", "true");
 
         chain.doFilter(request, resp);
     }

@@ -54,15 +54,23 @@ public class MainFilter implements Filter {
             }
 
             if (pageNumber != null) {
-                Integer page = Integer.valueOf(pageNumber);
-                req.setAttribute("page", page);
+                int page = Integer.parseInt(pageNumber);
+                if (page < 0) {
+                    throw new NumberFormatException();
+                } else {
+                    req.setAttribute("page", page);
+                }
             } else {
                 req.setAttribute("page", 0);
             }
 
             if (pageSize != null) {
-                Integer size = Integer.valueOf(pageSize);
-                req.setAttribute("size", size);
+                int size = Integer.parseInt(pageSize);
+                if (size < 0) {
+                    throw new NumberFormatException();
+                } else {
+                    req.setAttribute("size", size);
+                }
             } else {
                 req.setAttribute("size", 5);
             }

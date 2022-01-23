@@ -27,6 +27,7 @@ public class Coordinates {
     }
 
     @PrePersist
+    @PreUpdate
     public void prePersist() {
         if (y != null) {
             if (y >= 350) {

@@ -11,7 +11,7 @@ public class PersonMapper {
 
         person.setPersonId(dto.getPersonId());
         person.setName(dto.getName());
-        person.setPassportID(dto.getPassportID());
+        person.setPassportID(dto.getPassportId());
         person.setEyeColor(Color.of(dto.getEyeColor()));
         person.setHairColor(Color.of(dto.getHairColor()));
 
@@ -28,7 +28,7 @@ public class PersonMapper {
 
         personDto.setPersonId(entity.getPersonId());
         personDto.setName(entity.getName());
-        personDto.setPassportID(entity.getPassportID());
+        personDto.setPassportId(entity.getPassportID());
         personDto.setEyeColor(entity.getStringEyeColor());
         personDto.setHairColor(entity.getStringHairColor());
 

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class PersonDto {
     private Integer personId;
     private String name; //Поле не может быть null, Строка не может быть пустой
-    private String passportID = null; //Поле может быть null
+    private String passportId = null; //Поле может быть null
     private String eyeColor;
     private String hairColor;
 }
