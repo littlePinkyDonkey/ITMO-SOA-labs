@@ -3,7 +3,7 @@ import { Coordinates } from "./coordinates";
 
 export class Dragon {
     constructor(
-        public id:number,
+        public id:number|null,
         public name:string, 
         public coordinates:Coordinates, 
         public creationDate:Date, 

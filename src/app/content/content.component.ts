@@ -4,8 +4,11 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dial
 
 import { Dragon } from '../dto/dragon';
 import { AddDragonComponent } from '../add-dragon/add-dragon.component';
+import { EditDragonComponent } from '../edit-dragon/edit-dragon.component';
 import { DialogData } from '../dto/dialog-data';
 import { DragonHttpSenderService } from '../services/dragon/dragon-http-sender.service';
+import { ActivatedRoute } from '@angular/router';
+import { Person } from '../dto/person';
 
 @Component({
   selector: 'app-content',
@@ -18,16 +21,18 @@ export class ContentComponent implements OnInit {
 
   formData:DialogData = new DialogData();
 
-  constructor(private arraySender: ArrayHttpSenderService, private dragonSender: DragonHttpSenderService, private dialog: MatDialog) {
+  constructor(private arraySender: ArrayHttpSenderService,
+              private dragonSender: DragonHttpSenderService,
+              private dialog: MatDialog,
+              private route: ActivatedRoute) {
     this.dragonList = new Array<Dragon>();
+    this.route.queryParams.subscribe(params => {
+      
+    });
   }
 
   ngOnInit(): void {
     this.loadDragons();
-  }
-
-  print() {
-    console.log(this.dragonList);
   }
 
   private loadDragons() {
@@ -37,30 +42,97 @@ export class ContentComponent implements OnInit {
   }
 
   deleteDragon(id: number) {
-    this.dragonList.forEach(d => {
-      if(d.id === id) {
-        this.dragonList = [...this.dragonList.slice(0, this.dragonList.indexOf(d)), ...this.dragonList.slice(this.dragonList.indexOf(d)+1, this.dragonList.length)]
+    this.dragonSender.deleteDragon(id).subscribe({
+      next: data => {
+        console.log(data);
+        this.loadDragons();
+      },
+      error: error => {
+        console.log(error);
       }
-    });
+    })
   }
 
   editDragon(dragon: Dragon) {
-    console.log(dragon);
-  }
-
-  openDialog() {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.data = this.formData;
+    dialogConfig.data = dragon;
+
+    const dialogRef = this.dialog.open(EditDragonComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+        if(data != undefined) {
+          const newVal: Dragon = data;
+
+          console.log('new = ', data);
+          console.log('old = ', dragon)
+          newVal.id = dragon.id;
+          newVal.coordinates.coordinatesId = dragon.coordinates.coordinatesId;
+          if (dragon.killer != null) {
+            newVal.killer!.personId = dragon.killer?.personId;
+          }
+
+          let temp = JSON.parse(JSON.stringify(newVal));
+          if(newVal.creationDate?.toString().includes('T1')) {
+            let date:String = newVal.creationDate?.toString();
+
+            if(date !== '') {
+              let array = date.split('T1');
+              let dateArray = array[0].split('-');
+              let timeArray = array[1].split(':');
+
+              temp.creationDate = {
+                "date": {
+                  "year": dateArray[0],
+                  "month": dateArray[1],
+                  "day": dateArray[2]
+                },
+                "time": {
+                    "hour": timeArray[0],
+                    "minute": timeArray[1],
+                    "second": 0,
+                    "nano": 0
+                }
+              }
+            } else {
+              temp.creationDate = null;
+            }
+          }
+
+          this.dragonSender.updateDragon(temp).subscribe({
+            next: data => {
+              this.loadDragons();
+            },
+            error: error => {
+              console.error(error);
+            }
+          });
+        }
+    });
+  }
+
+  addDragon() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
 
     const dialogRef = this.dialog.open(AddDragonComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
-      console.log(data);
-      if(data !== undefined && data.coordinates != null || data.killer != null ) {
-        this.dragonSender.test();
+      if(data !== undefined) {
+        
+        const dragon:Dragon = data;
+        this.dragonSender.addDragon(dragon).subscribe({
+          next: data => {
+            this.loadDragons();
+          },
+          error: error => {
+            console.log(error);
+          }
+        })
       }
     });
   }

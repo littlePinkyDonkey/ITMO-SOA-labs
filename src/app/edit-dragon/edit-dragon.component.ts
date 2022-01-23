@@ -1,38 +1,37 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { MatSelect } from '@angular/material/select';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Coordinates } from '../dto/coordinates';
 import { Dragon } from '../dto/dragon';
 import { Person } from '../dto/person';
 
 @Component({
-  selector: 'app-add-dragon',
-  templateUrl: './add-dragon.component.html',
-  styleUrls: ['./add-dragon.component.css']
+  selector: 'app-edit-dragon',
+  templateUrl: './edit-dragon.component.html',
+  styleUrls: ['./edit-dragon.component.css']
 })
-export class AddDragonComponent implements OnInit {
-  dialogTitle:string = 'Add new dragon';
+export class EditDragonComponent implements OnInit {
+  dialogTitle:string = 'Edit dragon';
   dragonForm: FormGroup;
 
   colors: string[] = ['GREEN', 'BLACK', 'BLUE', 'BROWN'];
   characters: string[] = ['CUNNING', 'WISE', 'CHAOTIC_EVIL'];
   types: string[] = ['WATER', 'UNDERGROUND', 'FIRE'];
 
-  constructor(private dialogRef:MatDialogRef<AddDragonComponent>) {
+  constructor(private dialogRef:MatDialogRef<EditDragonComponent>, @Inject(MAT_DIALOG_DATA) public data: Dragon) {
     this.dragonForm = new FormGroup({
-      name: new FormControl("", [Validators.required]),
-      x: new FormControl("", [Validators.required]),
-      y: new FormControl("", [Validators.required]),
-      creationDate: new FormControl(""),
-      age: new FormControl("", [Validators.required]),
-      color: new FormControl("", [Validators.required]),
-      type: new FormControl("", [Validators.required]),
-      character: new FormControl("", [Validators.required]),
-      personName: new FormControl(""),
-      passportId: new FormControl(""),
-      eyeColor: new FormControl(""),
-      hairColor: new FormControl("")
+      name: new FormControl(data.name, [Validators.required]),
+      x: new FormControl(data.coordinates.x, [Validators.required]),
+      y: new FormControl(data.coordinates.y, [Validators.required]),
+      creationDate: new FormControl(data.creationDate),
+      age: new FormControl(data.age, [Validators.required]),
+      color: new FormControl(data.color, [Validators.required]),
+      type: new FormControl(data.type, [Validators.required]),
+      character: new FormControl(data.character, [Validators.required]),
+      personName: new FormControl(data.killer?.name),
+      passportId: new FormControl((<any>data.killer)?.passportId),
+      eyeColor: new FormControl(data.killer?.eyeColor),
+      hairColor: new FormControl(data.killer?.hairColor)
     });
   }
 

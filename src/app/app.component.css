@@ -5,6 +5,10 @@
 
 .main {
     background-color: azure;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 .header, .footer {
@@ -24,4 +28,5 @@
 .footer {
     border-top-left-radius: 20%;
     border-top-right-radius: 20%;
+    margin-top: auto;
 }

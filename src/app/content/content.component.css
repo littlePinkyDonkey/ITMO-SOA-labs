@@ -10,3 +10,7 @@ input[type="button"] {
 .form-control {
     width: fit-content;
 }
+
+mat-cell {
+    padding: 1%;
+}
