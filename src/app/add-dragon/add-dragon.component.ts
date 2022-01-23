@@ -53,7 +53,7 @@ export class AddDragonComponent implements OnInit {
       null,
       this.dragonForm.controls['name'].value,
       coordinates,
-      this.dragonForm.controls['creationDate'].value,
+      new Date(this.dragonForm.controls['creationDate'].value),
       this.dragonForm.controls['age'].value,
       this.dragonForm.controls['color'].value,
       this.dragonForm.controls['type'].value,

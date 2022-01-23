@@ -38,7 +38,7 @@ export class ContentComponent implements OnInit {
   }
 
   private loadDragons() {
-    this.arraySender.getAllElements('/?order_by=dragon_id&size=5&page=0').subscribe((data: Array<Dragon>) => {
+    this.arraySender.getAllElements('?order_by=dragon_id&size=5&page=0').subscribe((data: Array<Dragon>) => {
       this.dragonList = data;
     });
   }
@@ -50,7 +50,7 @@ export class ContentComponent implements OnInit {
         this.loadDragons();
       },
       error: error => {
-        console.log(error);
+        alert(error)
       }
     })
   }
@@ -76,39 +76,12 @@ export class ContentComponent implements OnInit {
             newVal.killer!.personId = dragon.killer?.personId;
           }
 
-          let temp = JSON.parse(JSON.stringify(newVal));
-          if(newVal.creationDate?.toString().includes('T1')) {
-            let date:String = newVal.creationDate?.toString();
-
-            if(date !== '') {
-              let array = date.split('T1');
-              let dateArray = array[0].split('-');
-              let timeArray = array[1].split(':');
-
-              temp.creationDate = {
-                "date": {
-                  "year": dateArray[0],
-                  "month": dateArray[1],
-                  "day": dateArray[2]
-                },
-                "time": {
-                    "hour": timeArray[0],
-                    "minute": timeArray[1],
-                    "second": 0,
-                    "nano": 0
-                }
-              }
-            } else {
-              temp.creationDate = null;
-            }
-          }
-
-          this.dragonSender.updateDragon(temp).subscribe({
+          this.dragonSender.updateDragon(newVal).subscribe({
             next: data => {
               this.loadDragons();
             },
             error: error => {
-              console.error(error);
+              alert(error)
             }
           });
         }
@@ -127,12 +100,13 @@ export class ContentComponent implements OnInit {
       if(data !== undefined) {
         
         const dragon:Dragon = data;
+        console.log(data);
         this.dragonSender.addDragon(dragon).subscribe({
           next: data => {
             this.loadDragons();
           },
           error: error => {
-            console.log(error);
+            alert(error)
           }
         })
       }
@@ -159,9 +133,31 @@ export class ContentComponent implements OnInit {
   }
 
   resetParameters() {
-    this.arraySender.getAllElements('/?order_by=dragon_id&size=5&page=0').subscribe((data: Array<Dragon>) => {
+    this.arraySender.getAllElements('?order_by=dragon_id&size=5&page=0').subscribe((data: Array<Dragon>) => {
       this.dragonList = data;
     });
+  }
+
+  getAgeSum() {
+    this.dragonSender.getAgeSum().subscribe({
+      next: data => {
+        alert(data)
+      },
+      error: error => {
+        alert(error)
+      }
+    })
+  }
+
+  getMinId() {
+    this.dragonSender.getMinId().subscribe((data:Dragon) => {
+      this.dragonList = [];
+      this.dragonList.push(data);
+    })
+  }
+
+  removeByCharacter() {
+
   }
 
 }

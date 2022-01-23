@@ -1,6 +1,9 @@
 <button mat-raised-button (click)="addDragon()">Add Dragon</button>
 <button mat-raised-button (click)="setParameters()">Parameters</button>
-<button mat-raised-button (click)="resetParameters()">Reset</button>
+<button mat-raised-button (click)="resetParameters()">Reset params</button>
+<button mat-raised-button (click)="getAgeSum()">Get age sum</button>
+<button mat-raised-button (click)="getMinId()">Get min Id</button>
+<button mat-raised-button (click)="removeByCharacter()">Remove by character</button>
 
 <mat-table [dataSource]="dragonList" class="mat-elevation-z8">
     <ng-container matColumnDef="id">
@@ -21,8 +24,7 @@
     <ng-container matColumnDef="creation">
       <mat-header-cell *matHeaderCellDef> Creation Date</mat-header-cell>
       <mat-cell *matCellDef="let element">
-          {{element.creationDate.date.day}}.{{element.creationDate.date.month}}.{{element.creationDate.date.year}}
-          {{element.creationDate.time.hour}}:{{element.creationDate.time.minute}}
+          {{element.creationDate?.toLocaleString()}}
       </mat-cell>
     </ng-container>
 
