@@ -1,4 +1,6 @@
 <button mat-raised-button (click)="addDragon()">Add Dragon</button>
+<button mat-raised-button (click)="setParameters()">Parameters</button>
+<button mat-raised-button (click)="resetParameters()">Reset</button>
 
 <mat-table [dataSource]="dragonList" class="mat-elevation-z8">
     <ng-container matColumnDef="id">

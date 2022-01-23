@@ -1,0 +1,238 @@
+<h1 mat-dialog-title>{{dialogTitle}}</h1>
+
+<mat-dialog-content [formGroup]="parametersForm" class="param-content">
+    <div class="param-field">
+        <mat-form-field appearance="legacy">
+            <mat-label>Order By</mat-label>
+            <mat-select formControlName="orderBy" name="orderBy">
+                <mat-option *ngFor="let orderBy of orderBy" [value]="orderBy">{{orderBy}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div>dragon_id</div>
+        <div>dragon_name</div>
+        <div>coordinate_x</div>
+        <div>coordinate_y</div>
+        <div>dragon_creation_date</div>
+        <div>dragon_age</div>
+        <div>dragon_color</div>
+        <div>dragon_type</div>
+        <div>dragon_character</div>
+        <div>killer_name</div>
+        <div>killer_passport</div>
+        <div>killer_eye</div>
+        <div>killer_hair</div>
+    </div>
+
+    <div class="param-field">
+        <mat-form-field appearance="legacy">
+            <mat-label>Page size</mat-label>
+            <input formControlName="size" matInput type="number">
+        </mat-form-field>
+
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Operand</mat-label>
+                <mat-select formControlName="dragon_id_operand" name="dragon_id_operand">
+                    <mat-option *ngFor="let operand of operands" [value]="operand">{{operand}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Operand</mat-label>
+                <mat-select formControlName="dragon_name_operand" name="dragon_name_operand">
+                    <mat-option *ngFor="let operand of operands" [value]="operand">{{operand}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Operand</mat-label>
+                <mat-select formControlName="coordinate_x_operand" name="coordinate_x_operand">
+                    <mat-option *ngFor="let operand of operands" [value]="operand">{{operand}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Operand</mat-label>
+                <mat-select formControlName="coordinate_y_operand" name="coordinate_y_operand">
+                    <mat-option *ngFor="let operand of operands" [value]="operand">{{operand}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Operand</mat-label>
+                <mat-select formControlName="dragon_creation_date_operand" name="dragon_creation_date_operand">
+                    <mat-option *ngFor="let operand of operands" [value]="operand">{{operand}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Operand</mat-label>
+                <mat-select formControlName="dragon_age_operand" name="dragon_age_operand">
+                    <mat-option *ngFor="let operand of operands" [value]="operand">{{operand}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Operand</mat-label>
+                <mat-select formControlName="dragon_color_operand" name="dragon_color_operand">
+                    <mat-option *ngFor="let operand of operands" [value]="operand">{{operand}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Operand</mat-label>
+                <mat-select formControlName="dragon_type_operand" name="dragon_type_operand">
+                    <mat-option *ngFor="let operand of operands" [value]="operand">{{operand}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Operand</mat-label>
+                <mat-select formControlName="dragon_character_operand" name="dragon_character_operand">
+                    <mat-option *ngFor="let operand of operands" [value]="operand">{{operand}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Operand</mat-label>
+                <mat-select formControlName="killer_name_operand" name="killer_name_operand">
+                    <mat-option *ngFor="let operand of operands" [value]="operand">{{operand}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Operand</mat-label>
+                <mat-select formControlName="killer_passport_operand" name="killer_passport_operand">
+                    <mat-option *ngFor="let operand of operands" [value]="operand">{{operand}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Operand</mat-label>
+                <mat-select formControlName="killer_eye_operand" name="killer_eye_operand">
+                    <mat-option *ngFor="let operand of operands" [value]="operand">{{operand}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Operand</mat-label>
+                <mat-select formControlName="killer_hair_operand" name="killer_hair_operand">
+                    <mat-option *ngFor="let operand of operands" [value]="operand">{{operand}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="param-field">
+        <mat-form-field appearance="legacy">
+            <mat-label>Page number</mat-label>
+            <input formControlName="page" matInput type="number">
+        </mat-form-field>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Dragon id</mat-label>
+                <input formControlName="dragon_id" matInput type="number">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Dragon name</mat-label>
+                <input formControlName="dragon_name" matInput type="text">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Coordinate x</mat-label>
+                <input formControlName="coordinate_x" matInput type="number">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Coordinate y</mat-label>
+                <input formControlName="coordinate_y" matInput type="number">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Creation date</mat-label>
+                <input formControlName="dragon_creation_date" matInput type="datetime-local">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Dragon age</mat-label>
+                <input formControlName="dragon_age" matInput type="number">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Dragon color</mat-label>
+                <mat-select formControlName="dragon_color" name="dragon_color">
+                    <mat-option *ngFor="let color of colors" [value]="color">{{color}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Dragon type</mat-label>
+                <mat-select formControlName="dragon_type" name="dragon_type">
+                    <mat-option *ngFor="let type of types" [value]="type">{{type}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Dragon character</mat-label>
+                <mat-select formControlName="dragon_character" name="dragon_character">
+                    <mat-option *ngFor="let character of characters" [value]="character">{{character}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Killer name</mat-label>
+                <input formControlName="killer_name" matInput type="text">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Killer passport</mat-label>
+                <input formControlName="killer_passport" matInput type="text">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Killer eye</mat-label>
+                <mat-select formControlName="killer_eye" name="killer_eye">
+                    <mat-option *ngFor="let eyeColor of colors" [value]="eyeColor">{{eyeColor}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Killer hair</mat-label>
+                <mat-select formControlName="killer_hair" name="killer_hair">
+                    <mat-option *ngFor="let hairColor of colors" [value]="hairColor">{{hairColor}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+    <button mat-button (click)="close()">Cancel</button>
+    <button mat-button (click)="save()">Finish</button>
+</div>

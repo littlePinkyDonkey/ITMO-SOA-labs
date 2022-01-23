@@ -19,13 +19,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { ArrayHttpSenderService } from './services/array-http-sender.service';
 import { DragonHttpSenderService } from './services/dragon/dragon-http-sender.service';
 import { EditDragonComponent } from './edit-dragon/edit-dragon.component';
+import { SetParametersComponent } from './set-parameters/set-parameters.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ContentComponent,
     AddDragonComponent,
-    EditDragonComponent
+    EditDragonComponent,
+    SetParametersComponent
   ],
   imports: [
     BrowserModule,

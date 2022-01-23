@@ -9,6 +9,8 @@ import { DialogData } from '../dto/dialog-data';
 import { DragonHttpSenderService } from '../services/dragon/dragon-http-sender.service';
 import { ActivatedRoute } from '@angular/router';
 import { Person } from '../dto/person';
+import { SetParametersComponent } from '../set-parameters/set-parameters.component';
+import { RequsetParams } from '../dto/request-params';
 
 @Component({
   selector: 'app-content',
@@ -36,7 +38,7 @@ export class ContentComponent implements OnInit {
   }
 
   private loadDragons() {
-    this.arraySender.getAllElements().subscribe((data: Array<Dragon>) => {
+    this.arraySender.getAllElements('/?order_by=dragon_id&size=5&page=0').subscribe((data: Array<Dragon>) => {
       this.dragonList = data;
     });
   }
@@ -134,6 +136,31 @@ export class ContentComponent implements OnInit {
           }
         })
       }
+    });
+  }
+
+  setParameters() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    const dialogRef = this.dialog.open(SetParametersComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(data => {
+      if(data != undefined) {
+        const params:RequsetParams = data;
+        console.log(params);
+        console.log(JSON.stringify(params.filter_by))
+        this.arraySender.getWithparams(params).subscribe((data: Array<Dragon>) => {
+          this.dragonList = data;
+        });
+      }
+    })
+  }
+
+  resetParameters() {
+    this.arraySender.getAllElements('/?order_by=dragon_id&size=5&page=0').subscribe((data: Array<Dragon>) => {
+      this.dragonList = data;
     });
   }
 
