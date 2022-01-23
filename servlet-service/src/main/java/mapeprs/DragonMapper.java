@@ -26,7 +26,7 @@ public class DragonMapper {
         dragon.setStringCharacter(DragonCharacter.of(dto.getCharacter()).getDescription());
         dragon.setCharacter(DragonCharacter.of(dto.getCharacter()));
 
-        if (dto.getKiller().getEyeColor().isEmpty()) {
+        if (dto.getKiller().getEyeColor() != null && dto.getKiller().getEyeColor().isEmpty()) {
             dragon.setKiller(null);
         } else {
             dragon.setKiller(personMapper.dtoToEntity(dto.getKiller()));

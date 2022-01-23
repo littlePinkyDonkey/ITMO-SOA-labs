@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import expetions.UserDataException;
+import util.GsonProvider;
 import util.OperandInfo;
 import util.enums.FilterOperands;
 
@@ -13,14 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter("/")
+@WebFilter("/api")
 public class MainFilter implements Filter {
-    private final GsonBuilder gsonBuilder = new GsonBuilder();
     private Gson gson;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        this.gson = gsonBuilder.create();
+        this.gson = GsonProvider.gson;
     }
 
     @Override

@@ -8,8 +8,10 @@ import dto.DragonDto;
 import expetions.UserDataException;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.ValidationException;
+import org.hibernate.HibernateException;
 import service.DragonService;
 import service.impl.DragonServiceImpl;
+import util.GsonProvider;
 
 import javax.persistence.OptimisticLockException;
 import javax.servlet.ServletException;
@@ -21,13 +23,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.stream.Collectors;
 
-@WebServlet("/dragons")
+@WebServlet("/api/dragons")
 public class DragonController extends HttpServlet {
-    private final GsonBuilder gsonBuilder;
     private final DragonService dragonService;
 
     public DragonController() {
-        this.gsonBuilder = new GsonBuilder();
         this.dragonService = DragonServiceImpl.getInstance();
     }
 
@@ -36,7 +36,7 @@ public class DragonController extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        Gson gson = gsonBuilder.create();
+        Gson gson = GsonProvider.gson;
 
         Long id = (Long) req.getAttribute("id");
         DragonDto dragon = dragonService.getDragonById(id);
@@ -53,7 +53,7 @@ public class DragonController extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        Gson gson = gsonBuilder.create();
+        Gson gson = GsonProvider.gson;
 
         DragonDto dragon = (DragonDto) req.getAttribute("dragon");
 
@@ -63,7 +63,7 @@ public class DragonController extends HttpServlet {
 
             resp.setStatus(HttpServletResponse.SC_CREATED);
             writer.write(gson.toJson(savedDragon));
-        } catch (ValidationException e) {
+        } catch (ValidationException | HibernateException e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             writer.write(gson.toJson(e.getMessage()));
         } catch (Exception e) {
@@ -76,7 +76,7 @@ public class DragonController extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        Gson gson = gsonBuilder.create();
+        Gson gson = GsonProvider.gson;
 
         Long id = (Long) req.getAttribute("id");
         try {
@@ -96,7 +96,7 @@ public class DragonController extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        Gson gson = gsonBuilder.create();
+        Gson gson = GsonProvider.gson;
 
         DragonDto dragon = (DragonDto) req.getAttribute("dragon");
 

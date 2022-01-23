@@ -23,4 +23,6 @@ public interface DragonService {
     int removeElementByCharacter(String character);
 
     Integer findSum();
+
+    DragonDto getWithMinId();
 }

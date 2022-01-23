@@ -15,7 +15,7 @@ public class PersonMapper {
         person.setEyeColor(Color.of(dto.getEyeColor()));
         person.setHairColor(Color.of(dto.getHairColor()));
 
-        if (dto.getHairColor().isEmpty() && dto.getEyeColor() != null) {
+        if (dto.getHairColor() != null && !dto.getHairColor().isEmpty() && dto.getEyeColor() != null && !dto.getEyeColor().isEmpty()) {
             person.setStringEyeColor(Color.of(dto.getEyeColor()).getDescription());
             person.setStringHairColor(Color.of(dto.getHairColor()).getDescription());
         }

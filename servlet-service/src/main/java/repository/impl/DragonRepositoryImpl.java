@@ -42,9 +42,9 @@ public class DragonRepositoryImpl implements DragonRepository {
 
                 if (key.equals("dragon_id")) {
                     query.setParameter(key, Long.parseLong(value));
-                } else if (key.equals("coordinate_x") || key.equals("dragon_age")) {
+                } else if (key.equals("coordinate_y") || key.equals("dragon_age")) {
                     query.setParameter(key, Integer.parseInt(value));
-                } else if (key.equals("coordinate_y")) {
+                } else if (key.equals("coordinate_x")) {
                     query.setParameter(key, Double.parseDouble(value));
                 } else if (key.equals("dragon_creation_date")) {
                     query.setParameter(key, LocalDateTime.parse(value));
@@ -54,10 +54,6 @@ public class DragonRepositoryImpl implements DragonRepository {
             }
 
             dragons = query.list();
-
-//            session.createQuery("FROM DRAGONS d where killer.passportID=:killer_passport  order by id")
-//                    .setParameter("killer_passport", "dasdasd")
-//                    .list();
 
             transaction.commit();
         } catch (Exception e) {
@@ -147,10 +143,6 @@ public class DragonRepositoryImpl implements DragonRepository {
 
             session.remove(d);
             session.remove(d.getCoordinates());
-
-//            updated = session.createQuery("delete from dao.Dragon where id=:id")
-//                    .setParameter("id", id)
-//                    .executeUpdate();
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
@@ -175,5 +167,21 @@ public class DragonRepositoryImpl implements DragonRepository {
             throw e;
         }
         return updated;
+    }
+
+    @Override
+    public Dragon getWithMinId() {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        List<Dragon> dragons;
+        try {
+            Query query = session.createQuery("from dao.Dragon d order by id");
+            dragons = query.list();
+            return dragons.get(0);
+        } catch (Exception e) {
+            transaction.rollback();
+            throw e;
+        }
     }
 }
