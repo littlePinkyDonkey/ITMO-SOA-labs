@@ -81,7 +81,7 @@ public class DragonController extends HttpServlet {
         Long id = (Long) req.getAttribute("id");
         try {
             dragonService.removeElement(id);
-            resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            resp.setStatus(HttpServletResponse.SC_OK);
         } catch (UserDataException e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             writer.write(gson.toJson(e.getMessage()));

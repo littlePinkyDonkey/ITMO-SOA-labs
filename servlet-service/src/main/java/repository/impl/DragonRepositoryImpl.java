@@ -146,7 +146,7 @@ public class DragonRepositoryImpl implements DragonRepository {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
-            throw e;
+            return 0;
         }
         return 1;
     }

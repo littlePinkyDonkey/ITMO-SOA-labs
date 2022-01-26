@@ -12,6 +12,7 @@ import service.CoordinatesService;
 import service.DragonService;
 import service.ExtraOperationsService;
 import service.PersonService;
+import util.GsonProvider;
 
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class ExtraOperationsServiceImpl implements ExtraOperationsService {
 
     @Override
     public String findMinId() {
-        Gson gson = gsonBuilder.create();
+        Gson gson = GsonProvider.gson;
 
         return gson.toJson(dragonService.getWithMinId());
     }
