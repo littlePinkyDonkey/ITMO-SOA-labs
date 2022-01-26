@@ -33,4 +33,10 @@ export class DragonHttpSenderService {
     return this.http.get<Dragon>(baseUrl + '/min')
   }
 
+  removeByCharacter(character:string) {
+    return this.http.delete(baseUrl + '/remove', {
+      params: {character: character}
+    });
+  }
+
 }
