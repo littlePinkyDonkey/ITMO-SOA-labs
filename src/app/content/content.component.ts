@@ -11,6 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Person } from '../dto/person';
 import { SetParametersComponent } from '../set-parameters/set-parameters.component';
 import { RequsetParams } from '../dto/request-params';
+import { DeleteDragonsByCharComponent } from '../delete-dragons-by-char/delete-dragons-by-char.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-content',
@@ -50,7 +52,9 @@ export class ContentComponent implements OnInit {
         this.loadDragons();
       },
       error: error => {
-        alert(error)
+        let er:HttpErrorResponse = error;
+        console.log(`${er.error}\nstatus ${er.status}\n${er.message}\n${er.name}\n${er.type}`)
+        alert(`${er.status}\n${er.error}`)
       }
     })
   }
@@ -81,7 +85,9 @@ export class ContentComponent implements OnInit {
               this.loadDragons();
             },
             error: error => {
-              alert(error)
+              let er:HttpErrorResponse = error;
+              console.log(`${er.error}\nstatus ${er.status}\n${er.message}\n${er.name}\n${er.type}`)
+              alert(`${er.status}\n${er.error}`)
             }
           });
         }
@@ -106,7 +112,9 @@ export class ContentComponent implements OnInit {
             this.loadDragons();
           },
           error: error => {
-            alert(error)
+            let er:HttpErrorResponse = error;
+            console.log(`${er.error}\nstatus ${er.status}\n${er.message}\n${er.name}\n${er.type}`)
+            alert(`${er.status}\n${er.error}`)
           }
         })
       }
@@ -144,7 +152,9 @@ export class ContentComponent implements OnInit {
         alert(data)
       },
       error: error => {
-        alert(error)
+        let er:HttpErrorResponse = error;
+        console.log(error)
+        alert(`${er.status}\n${er.error}`)
       }
     })
   }
@@ -157,7 +167,28 @@ export class ContentComponent implements OnInit {
   }
 
   removeByCharacter() {
+    const dialogConfig = new MatDialogConfig();
 
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    const dialogRef = this.dialog.open(DeleteDragonsByCharComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+      if(data != undefined) {
+        this.dragonSender.removeByCharacter(data).subscribe({
+          next: data => {
+            console.log(data);
+            this.loadDragons();
+          },
+          error: error => {
+            let er:HttpErrorResponse = error;
+            console.log(`${er.error}\nstatus ${er.status}\n${er.message}\n${er.name}\n${er.type}`)
+            alert(`${er.status}\n${er.error}`)
+          }
+        })
+      }
+    })
   }
 
 }

@@ -20,6 +20,7 @@ import { ArrayHttpSenderService } from './services/array-http-sender.service';
 import { DragonHttpSenderService } from './services/dragon/dragon-http-sender.service';
 import { EditDragonComponent } from './edit-dragon/edit-dragon.component';
 import { SetParametersComponent } from './set-parameters/set-parameters.component';
+import { DeleteDragonsByCharComponent } from './delete-dragons-by-char/delete-dragons-by-char.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { SetParametersComponent } from './set-parameters/set-parameters.componen
     ContentComponent,
     AddDragonComponent,
     EditDragonComponent,
-    SetParametersComponent
+    SetParametersComponent,
+    DeleteDragonsByCharComponent
   ],
   imports: [
     BrowserModule,
