@@ -105,6 +105,9 @@ public class DragonServiceImpl implements DragonService {
         Dragon dragon = dragonMapper.dtoToEntity(newValue);
 
         DragonDto updatedValue;
+        if (dragon.getKiller().getName() == null && dragon.getKiller().getEyeColor() == null && dragon.getKiller().getHairColor() == null) {
+            dragon.setKiller(null);
+        }
         updatedValue = dragonMapper.entityToDto(dragonRepository.updateElement(dragon));
 
         return updatedValue;
