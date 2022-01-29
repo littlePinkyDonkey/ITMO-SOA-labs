@@ -1,27 +1,23 @@
 package mapeprs;
 
-import dao.Coordinates;
+import entity.Coordinates;
 import dto.CoordinatesDto;
 
 public class CoordinatesMapper {
 
-    public Coordinates dtoToEntity(CoordinatesDto dto) {
-        Coordinates coordinates = new Coordinates();
-
-        coordinates.setCoordinatesId(dto.getCoordinatesId());
-        coordinates.setX(dto.getX());
-        coordinates.setY(dto.getY());
-
-        return coordinates;
+    public Coordinates dtoToEntity(final CoordinatesDto dto) {
+        return Coordinates.builder()
+                .coordinatesId(dto.getCoordinatesId())
+                .x(dto.getX())
+                .y(dto.getY())
+                .build();
     }
 
-    public CoordinatesDto entityToDto(Coordinates entity) {
-        CoordinatesDto coordinatesDto = new CoordinatesDto();
-
-        coordinatesDto.setCoordinatesId(entity.getCoordinatesId());
-        coordinatesDto.setX(entity.getX());
-        coordinatesDto.setY(entity.getY());
-
-        return coordinatesDto;
+    public CoordinatesDto entityToDto(final Coordinates entity) {
+        return CoordinatesDto.builder()
+                .coordinatesId(entity.getCoordinatesId())
+                .x(entity.getX())
+                .y(entity.getY())
+                .build();
     }
 }

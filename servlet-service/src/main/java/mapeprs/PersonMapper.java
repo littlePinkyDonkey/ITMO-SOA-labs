@@ -1,37 +1,35 @@
 package mapeprs;
 
-import dao.Person;
-import dao.enums.Color;
+import entity.Person;
+import entity.enums.Color;
 import dto.PersonDto;
 
 public class PersonMapper {
 
-    public Person dtoToEntity(PersonDto dto) {
-        Person person = new Person();
-
-        person.setPersonId(dto.getPersonId());
-        person.setName(dto.getName());
-        person.setPassportID(dto.getPassportId());
-        person.setEyeColor(Color.of(dto.getEyeColor()));
-        person.setHairColor(Color.of(dto.getHairColor()));
-
-        if (dto.getHairColor() != null && !dto.getHairColor().isEmpty() && dto.getEyeColor() != null && !dto.getEyeColor().isEmpty()) {
-            person.setStringEyeColor(Color.of(dto.getEyeColor()).getDescription());
-            person.setStringHairColor(Color.of(dto.getHairColor()).getDescription());
-        }
-
-        return person;
+    public Person dtoToEntity(final PersonDto dto) {
+        return Person.builder()
+                .personId(dto.getPersonId())
+                .name(dto.getName())
+                .passportID(dto.getPassportId())
+                .eyeColor(Color.of(dto.getEyeColor()))
+                .hairColor(Color.of(dto.getHairColor()))
+                .build();
     }
 
-    public PersonDto entityToDto(Person entity) {
-        PersonDto personDto = new PersonDto();
+    public PersonDto entityToDto(final Person entity) {
+        final PersonDto dto =  PersonDto.builder()
+                .personId(entity.getPersonId())
+                .name(entity.getName())
+                .passportId(entity.getPassportID())
+                .build();
 
-        personDto.setPersonId(entity.getPersonId());
-        personDto.setName(entity.getName());
-        personDto.setPassportId(entity.getPassportID());
-        personDto.setEyeColor(entity.getStringEyeColor());
-        personDto.setHairColor(entity.getStringHairColor());
+        if (entity.getEyeColor() != null) {
+            dto.setEyeColor(entity.getEyeColor().getDescription());
+        }
+        if (entity.getHairColor() != null) {
+            dto.setHairColor(entity.getHairColor().getDescription());
+        }
 
-        return personDto;
+        return dto;
     }
 }

@@ -11,10 +11,10 @@ public class OperandInfo {
     private String operator;
     private String filterValue;
 
-    public static OperandInfo initOperand(String filter) throws UserDataException {
-        OperandInfo operandInfo = new OperandInfo();
+    public static OperandInfo initOperand(final String filter) throws UserDataException {
+        final OperandInfo operandInfo = new OperandInfo();
 
-        int operatorPosition;
+        final int operatorPosition;
         if (filter.contains(">")) {
             operatorPosition = filter.indexOf(">");
         } else if (filter.contains("<")) {

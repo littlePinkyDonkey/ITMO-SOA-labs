@@ -1,4 +1,4 @@
-package dao.enums;
+package entity.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,15 +7,15 @@ import java.util.stream.Stream;
 
 @Getter
 @AllArgsConstructor
-public enum DragonType {
-    WATER("WATER"),
-    UNDERGROUND("UNDERGROUND"),
-    FIRE("FIRE");
+public enum DragonCharacter {
+    CUNNING("CUNNING"),
+    WISE("WISE"),
+    CHAOTIC_EVIL("CHAOTIC_EVIL");
 
     private String description;
 
-    public static DragonType of(String value) {
-        return Stream.of(DragonType.values())
+    public static DragonCharacter of(final String value) {
+        return Stream.of(DragonCharacter.values())
                 .filter(type -> type.getDescription().equals(value))
                 .findFirst()
                 .orElse(null);

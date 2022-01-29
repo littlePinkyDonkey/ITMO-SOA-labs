@@ -1,7 +1,6 @@
 /target
 .idea
 
-/servlet-service/src/main/java/controllers/Test.java
 /servlet-service/target
 
 /servlet-service/src/main/java/controllers/PersonController.java

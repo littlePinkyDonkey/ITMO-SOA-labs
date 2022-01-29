@@ -1,13 +1,18 @@
-package dao;
+package entity;
 
 import jakarta.validation.ValidationException;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "COORDINATES")
 public class Coordinates {
     @Id
@@ -21,7 +26,7 @@ public class Coordinates {
     @Column(name = "Y", nullable = false)
     private Integer y; //Максимальное значение поля: 350, Поле не может быть null
 
-    public Coordinates(Double x, Integer y) {
+    public Coordinates(final Double x, final Integer y) {
         this.x = x;
         this.y = y;
     }

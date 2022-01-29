@@ -2,6 +2,7 @@ package util;
 
 import com.google.gson.*;
 
+import javax.enterprise.inject.Produces;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -9,6 +10,9 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class GsonProvider {
+
+    @Produces
+    @GsonQualifier
     public static final Gson gson = new GsonBuilder()
             .registerTypeAdapter(LocalDateTime.class, new DateConverter())
             .create();
@@ -17,7 +21,8 @@ public class GsonProvider {
         private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
         @Override
-        public LocalDateTime deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+        public LocalDateTime deserialize(final JsonElement jsonElement, final Type type,
+                                         final JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
             if (jsonElement != null) {
                 return ZonedDateTime.parse(jsonElement.getAsJsonPrimitive().getAsString()).withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
             } else {
@@ -26,7 +31,8 @@ public class GsonProvider {
         }
 
         @Override
-        public JsonElement serialize(LocalDateTime localDateTime, Type type, JsonSerializationContext jsonSerializationContext) {
+        public JsonElement serialize(final LocalDateTime localDateTime, final Type type,
+                                     final JsonSerializationContext jsonSerializationContext) {
             if (localDateTime != null) {
                 return new JsonPrimitive(FORMATTER.format(localDateTime));
             } else {

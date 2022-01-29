@@ -12,11 +12,11 @@ public class Node {
     private Node rightChild;
     private boolean isOrderBy;
 
-    public Node(OperandInfo data) {
+    public Node(final OperandInfo data) {
         this.data = data;
     }
 
-    public Node(OperandInfo data, boolean isOrderBy) {
+    public Node(final OperandInfo data, final boolean isOrderBy) {
         this.data = data;
         this.isOrderBy = isOrderBy;
     }

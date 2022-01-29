@@ -1,17 +1,33 @@
 package service;
 
-import dao.Person;
+import entity.Person;
+import repository.PersonRepository;
 
+import javax.inject.Inject;
 import java.util.List;
 
-public interface PersonService {
-    List<Person> getAll();
+public class PersonService {
 
-    void save(Person person);
+    @Inject
+    private PersonRepository personRepository;
 
-    Person getPersonById(Integer id);
+    public List<Person> getAll() {
+        return personRepository.getAll();
+    }
 
-    Person updateElement(Person newValue);
+    public void save(final Person person) {
+        personRepository.save(person);
+    }
 
-    void removeElement(Long dragonId, Integer personId);
+    public Person getPersonById(final Integer id) {
+        return personRepository.getPersonById(id);
+    }
+
+    public Person updateElement(final Person newValue) {
+        return personRepository.updateElement(newValue);
+    }
+
+    public void removeElement(final Long dragonId, final Integer personId) {
+        personRepository.removeElement(personId);
+    }
 }

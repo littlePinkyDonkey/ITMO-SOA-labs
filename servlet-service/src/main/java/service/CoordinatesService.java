@@ -1,17 +1,33 @@
 package service;
 
-import dao.Coordinates;
+import entity.Coordinates;
+import repository.CoordinatesRepository;
 
+import javax.inject.Inject;
 import java.util.List;
 
-public interface CoordinatesService {
-    List<Coordinates> getAll();
+public class CoordinatesService {
 
-    void save(Coordinates coordinates);
+    @Inject
+    private CoordinatesRepository coordinatesRepository;
 
-    Coordinates getCoordinatesById(Integer id);
+    public List<Coordinates> getAll() {
+        return coordinatesRepository.getAll();
+    }
 
-    Coordinates updateElement(Coordinates newValue);
+    public void save(final Coordinates coordinates) {
+        coordinatesRepository.save(coordinates);
+    }
 
-    void removeElement(Integer coordinateId);
+    public Coordinates getCoordinatesById(final Integer id) {
+        return coordinatesRepository.getCoordinatesById(id);
+    }
+
+    public Coordinates updateElement(final Coordinates newValue) {
+        return coordinatesRepository.updateElement(newValue);
+    }
+
+    public void removeElement(final Integer id) {
+        coordinatesRepository.removeElement(id);
+    }
 }

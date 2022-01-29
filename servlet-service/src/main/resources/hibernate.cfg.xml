@@ -16,8 +16,8 @@
         <property name="hbm2ddl.auto">update</property>
         <property name="dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
 
-        <mapping class="dao.Dragon"/>
-        <mapping class="dao.Person"/>
-        <mapping class="dao.Coordinates"/>
+        <mapping class="entity.Dragon"/>
+        <mapping class="entity.Person"/>
+        <mapping class="entity.Coordinates"/>
     </session-factory>
 </hibernate-configuration>

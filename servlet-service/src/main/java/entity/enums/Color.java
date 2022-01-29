@@ -1,4 +1,4 @@
-package dao.enums;
+package entity.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +15,7 @@ public enum Color {
 
     private String description;
 
-    public static Color of(String value) {
+    public static Color of(final String value) {
         return Stream.of(Color.values())
                 .filter(type -> type.getDescription().equals(value))
                 .findFirst()
