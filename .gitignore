@@ -2,6 +2,7 @@
 .idea
 
 /servlet-service/target
+/second-service/target
 
 /servlet-service/src/main/java/controllers/PersonController.java
 /servlet-service/src/main/java/controllers/CoordinatesController.java
