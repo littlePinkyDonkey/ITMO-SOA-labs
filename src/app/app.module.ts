@@ -21,6 +21,11 @@ import { DragonHttpSenderService } from './services/dragon/dragon-http-sender.se
 import { EditDragonComponent } from './edit-dragon/edit-dragon.component';
 import { SetParametersComponent } from './set-parameters/set-parameters.component';
 import { DeleteDragonsByCharComponent } from './delete-dragons-by-char/delete-dragons-by-char.component';
+import { AddKillerComponent } from './add-killer/add-killer.component';
+import { AddTeamComponent } from './add-team/add-team.component';
+import { SendToCaveComponent } from './send-to-cave/send-to-cave.component';
+import { AllTeamsComponent } from './all-teams/all-teams.component';
+import { AllCavesComponent } from './all-caves/all-caves.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +34,12 @@ import { DeleteDragonsByCharComponent } from './delete-dragons-by-char/delete-dr
     AddDragonComponent,
     EditDragonComponent,
     SetParametersComponent,
-    DeleteDragonsByCharComponent
+    DeleteDragonsByCharComponent,
+    AddKillerComponent,
+    AddTeamComponent,
+    SendToCaveComponent,
+    AllTeamsComponent,
+    AllCavesComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>{{dialogTitle}}</h1>
+
+<mat-dialog-content [formGroup]="sendForm">
+    <mat-form-field appearance="fill">
+        <mat-label>Team id</mat-label>
+        <input formControlName="teamId" type="number" matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Cave id</mat-label>
+        <input formControlName="caveId" type="number" matInput>
+    </mat-form-field>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+    <button mat-button (click)="close()">Cancel</button>
+    <button mat-button (click)="save()" cdkFocusInitial [disabled]="sendForm.invalid && sendForm.touched">Add</button>
+</div>

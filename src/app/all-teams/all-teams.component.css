@@ -1,0 +1,16 @@
+table {
+    width: 100%;
+}
+
+input[type="button"] {
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+.form-control {
+    width: fit-content;
+}
+
+mat-cell {
+    padding: 1%;
+}

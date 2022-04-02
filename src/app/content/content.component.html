@@ -4,6 +4,12 @@
 <button mat-raised-button (click)="getAgeSum()">Get age sum</button>
 <button mat-raised-button (click)="getMinId()">Get min Id</button>
 <button mat-raised-button (click)="removeByCharacter()">Remove by character</button>
+<button mat-raised-button (click)="createCave()">Create cave</button>
+<button mat-raised-button (click)="getAllCaves()">Get all caves</button>
+<button mat-raised-button (click)="createKiller()">Create killer</button>
+<button mat-raised-button (click)="createTeam()">Create team</button>
+<button mat-raised-button (click)="sendTeamToCave()">Send team to cave</button>
+<button mat-raised-button (click)="getAllTeams()">Gett all teams</button>
 
 <mat-table [dataSource]="dragonList" class="mat-elevation-z8">
     <ng-container matColumnDef="id">

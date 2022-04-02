@@ -5,6 +5,7 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dial
 import { Dragon } from '../dto/dragon';
 import { AddDragonComponent } from '../add-dragon/add-dragon.component';
 import { EditDragonComponent } from '../edit-dragon/edit-dragon.component';
+import { AddKillerComponent } from '../add-killer/add-killer.component';
 import { DialogData } from '../dto/dialog-data';
 import { DragonHttpSenderService } from '../services/dragon/dragon-http-sender.service';
 import { ActivatedRoute } from '@angular/router';
@@ -13,6 +14,14 @@ import { SetParametersComponent } from '../set-parameters/set-parameters.compone
 import { RequsetParams } from '../dto/request-params';
 import { DeleteDragonsByCharComponent } from '../delete-dragons-by-char/delete-dragons-by-char.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { KillerHttpSenderService } from '../services/killer/killer-http-sender.service';
+import { CaveHttpSenderService } from '../services/caves/cave-http-sender.service';
+import { AddTeamComponent } from '../add-team/add-team.component';
+import { Team } from '../dto/team';
+import { SendToCaveComponent } from '../send-to-cave/send-to-cave.component';
+import { Move } from '../dto/send-to-cave';
+import { AllTeamsComponent } from '../all-teams/all-teams.component';
+import { AllCavesComponent } from '../all-caves/all-caves.component';
 
 @Component({
   selector: 'app-content',
@@ -27,6 +36,8 @@ export class ContentComponent implements OnInit {
 
   constructor(private arraySender: ArrayHttpSenderService,
               private dragonSender: DragonHttpSenderService,
+              private killerSender: KillerHttpSenderService,
+              private caveSender: CaveHttpSenderService,
               private dialog: MatDialog,
               private route: ActivatedRoute) {
     this.dragonList = new Array<Dragon>();
@@ -189,6 +200,116 @@ export class ContentComponent implements OnInit {
         })
       }
     })
+  }
+
+  createCave() {
+    this.caveSender.createCave().subscribe({
+      next:data => {
+        alert('Successful')
+      },
+      error:error => {
+        let er:HttpErrorResponse = error;
+        console.log(`${er.error}\nstatus ${er.status}\n${er.message}\n${er.name}\n${er.type}`)
+        alert(`${er.status}\n${er.error}`)
+      }
+    })
+  }
+
+  getAllCaves() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    const dialogRef = this.dialog.open(AllCavesComponent, dialogConfig);
+  }
+
+  createKiller() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    const dialogRef = this.dialog.open(AddKillerComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(data => {
+      if(data !== undefined){
+        const killer:Person = data;
+        console.log(killer);
+        this.killerSender.createKiller(killer).subscribe({
+          next:data => {
+            alert('Successful')
+          },
+          error:error => {
+            let er:HttpErrorResponse = error;
+            console.log(`${er.error}\nstatus ${er.status}\n${er.message}\n${er.name}\n${er.type}`)
+            alert(`${er.status}\n${er.error}`)
+          }
+        })
+      }
+    })
+  }
+
+  createTeam() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    const dialogRef = this.dialog.open(AddTeamComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(data => {
+      if(data !== undefined) {
+        const team:Team = data;
+        if(team.teamId<0 || team.startCave<0 || team.teamSize<0) {
+          alert(`400\nInvalid parameters`)
+        }
+        console.log(team.teamId);
+        this.killerSender.createKillerTeam(team.teamId, team.teamName, team.teamSize, team.startCave).subscribe({
+          next:data => {
+            alert('Successful')
+          },
+          error:error => {
+            let er:HttpErrorResponse = error;
+            console.log(`${er.error}\nstatus ${er.status}\n${er.message}\n${er.name}\n${er.type}`)
+            alert(`${er.status}\n${er.error}`)
+          }
+        });
+      }
+    })
+  }
+
+  sendTeamToCave() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    const dialogRef = this.dialog.open(SendToCaveComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(data => {
+      if(data !== undefined) {
+        const move:Move = data;
+        if(move.caveId<0 || move.teamId<0) {
+          alert(`400\nInvalid parameters`)
+        }
+        console.log(`${move.caveId} ${move.teamId}`)
+        this.killerSender.sendKillerToCave(move.teamId, move.caveId).subscribe({
+          next:data => {
+            alert('Successful')
+          },
+          error:error => {
+            let er:HttpErrorResponse = error;
+            console.log(`${er.error}\nstatus ${er.status}\n${er.message}\n${er.name}\n${er.type}`)
+            alert(`${er.status}\n${er.error}`)
+          }
+        });
+      }
+    })
+  }
+
+  getAllTeams() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    const dialogRef = this.dialog.open(AllTeamsComponent, dialogConfig);
   }
 
 }

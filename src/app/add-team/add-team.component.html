@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>{{dialogTitle}}</h1>
+
+<mat-dialog-content [formGroup]="teamForm">
+    <mat-form-field appearance="fill">
+        <mat-label>Team id</mat-label>
+        <input formControlName="teamId" type="number" matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Team name</mat-label>
+        <input formControlName="teamName" type="text" matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Team size</mat-label>
+        <input formControlName="teamSize" type="number" matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Cave id</mat-label>
+        <input formControlName="startCave" type="number" matInput>
+    </mat-form-field>
+
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+    <button mat-button (click)="close()">Cancel</button>
+    <button mat-button (click)="save()" cdkFocusInitial [disabled]="teamForm.invalid && teamForm.touched">Add</button>
+</div>

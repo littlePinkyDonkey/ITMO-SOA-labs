@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>{{dialogTitle}}</h1>
+
+<mat-dialog-content [formGroup]="killerForm">
+    <mat-form-field appearance="fill">
+        <mat-label>Killer name</mat-label>
+        <input formControlName="name" type="text" matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Killer passport</mat-label>
+        <input formControlName="passportId" type="text" matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Killer eye</mat-label>
+        <mat-select formControlName="eyeColor" name="eyeColor">
+            <mat-option *ngFor="let eyeColor of colors" [value]="eyeColor">{{eyeColor}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Killer hair</mat-label>
+        <mat-select formControlName="hairColor" name="hairColor">
+            <mat-option *ngFor="let hairColor of colors" [value]="hairColor">{{hairColor}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+    <button mat-button (click)="close()">Cancel</button>
+    <button mat-button (click)="save()" cdkFocusInitial [disabled]="killerForm.invalid && killerForm.touched">Add</button>
+</div>

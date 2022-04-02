@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>{{dialogTitle}}</h1>
+
+<mat-table [dataSource]="caveList" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.caveId}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="team-id">
+        <mat-header-cell *matHeaderCellDef> Team Id </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{getTeamsIds(element)}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="team-name">
+        <mat-header-cell *matHeaderCellDef> Team name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{getTeamsNames(element)}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<div mat-dialog-actions>
+    <button mat-button (click)="close()">Cancel</button>
+</div>
