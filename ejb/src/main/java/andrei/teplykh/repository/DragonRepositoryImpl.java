@@ -21,8 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @Stateless
-@Local(DragonRepository.class)
-public class DragonRepositoryImpl implements DragonRepository {
+public class DragonRepositoryImpl {
 
     private SessionFactory sessionFactory;
 

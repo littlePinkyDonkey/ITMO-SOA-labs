@@ -11,8 +11,7 @@ import javax.ejb.Stateless;
 import java.util.List;
 
 @Stateless
-@Local(CoordinatesRepository.class)
-public class CoordinatesRepositoryIml implements CoordinatesRepository {
+public class CoordinatesRepositoryIml {
     private final SessionFactory sessionFactory;
 
     public CoordinatesRepositoryIml() {

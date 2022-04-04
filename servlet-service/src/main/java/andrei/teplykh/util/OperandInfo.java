@@ -5,8 +5,10 @@ import andrei.teplykh.expetions.UserDataException;
 import lombok.Data;
 import andrei.teplykh.util.enums.FilterOperands;
 
+import java.io.Serializable;
+
 @Data
-public class OperandInfo {
+public class OperandInfo implements Serializable {
     private FilterOperands filterOperands;
     private String operator;
     private String filterValue;

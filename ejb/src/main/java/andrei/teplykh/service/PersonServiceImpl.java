@@ -4,10 +4,8 @@ import andrei.teplykh.dto.PersonDto;
 import andrei.teplykh.entity.Person;
 import andrei.teplykh.exception.BusinessException;
 import andrei.teplykh.mappers.PersonMapper;
-import andrei.teplykh.repository.PersonRepository;
 import andrei.teplykh.repository.PersonRepositoryImpl;
 
-import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -16,11 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
-//@Remote(PersonService.class)
+@Remote(PersonService.class)
 public class PersonServiceImpl implements PersonService {
 
-    @EJB
-    private PersonRepository personRepositoryImpl;
+    @Inject
+    private PersonRepositoryImpl personRepositoryImpl;
 
     private PersonMapper personMapper = new PersonMapper();
 

@@ -3,11 +3,12 @@ package andrei.teplykh.util.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.io.Serializable;
 import java.util.stream.Stream;
 
 @Getter
 @AllArgsConstructor
-public enum FilterOperands {
+public enum FilterOperands implements Serializable {
     DRAGON_ID("dragon_id", "id"),
     DRAGON_NAME("dragon_name", "name"),
     COORDINATE_X("coordinate_x", "coordinates.x"),

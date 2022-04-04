@@ -11,8 +11,7 @@ import javax.ejb.Stateless;
 import java.util.List;
 
 @Stateless
-@Local(PersonRepository.class)
-public class PersonRepositoryImpl implements PersonRepository {
+public class PersonRepositoryImpl {
     private final SessionFactory sessionFactory;
 
     public PersonRepositoryImpl() {

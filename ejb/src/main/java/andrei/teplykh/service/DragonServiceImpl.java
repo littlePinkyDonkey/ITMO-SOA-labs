@@ -1,18 +1,18 @@
 package andrei.teplykh.service;
 
-import andrei.teplykh.repository.DragonRepository;
 import andrei.teplykh.entity.Dragon;
 import andrei.teplykh.dto.DragonDto;
 import andrei.teplykh.entity.enums.DragonCharacter;
 import andrei.teplykh.exception.BusinessException;
 import andrei.teplykh.exception.UserDataException;
 import andrei.teplykh.mappers.DragonMapper;
+import andrei.teplykh.repository.DragonRepositoryImpl;
 import andrei.teplykh.util.OperandInfo;
 import andrei.teplykh.util.tree.FilterBinaryTree;
 
-import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +20,8 @@ import java.util.List;
 @Remote(DragonService.class)
 public class DragonServiceImpl implements DragonService {
 
-    @EJB
-    private DragonRepository dragonRepositoryImpl;
+    @Inject
+    private DragonRepositoryImpl dragonRepositoryImpl;
 
     private DragonMapper dragonMapper = new DragonMapper();
 
