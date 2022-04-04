@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>second-service</artifactId>
+    <artifactId>second-andrei.teplykh.service</artifactId>
 
     <packaging>war</packaging>
 

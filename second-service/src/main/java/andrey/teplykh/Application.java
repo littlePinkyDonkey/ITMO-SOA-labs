@@ -22,11 +22,6 @@ public class Application extends SpringBootServletInitializer {
     }
 
     @Bean
-    public Gson gson() {
-        return new GsonBuilder().create();
-    }
-
-    @Bean
     public RestTemplate restTemplate() {
         return new RestTemplateBuilder().build();
     }

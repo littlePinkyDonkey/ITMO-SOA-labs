@@ -11,6 +11,8 @@
     <modules>
         <module>servlet-service</module>
         <module>second-service</module>
+        <module>ejb</module>
+        <module>ear</module>
     </modules>
 
     <properties>

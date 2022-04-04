@@ -43,7 +43,7 @@ public class EndpointService implements MainServiceRepository {
         } catch (final HttpClientErrorException e) {
             throw new BusinessException(e.getStatusCode(), e.getResponseBodyAsString());
         } catch (final ResourceAccessException e) {
-            throw new BusinessException(HttpStatus.SERVICE_UNAVAILABLE, "Unable to connect to main service. Please try again later");
+            throw new BusinessException(HttpStatus.SERVICE_UNAVAILABLE, "Unable to connect to main andrei.teplykh.service. Please try again later");
         }
 
         return gson.fromJson(response, listType);
@@ -58,7 +58,7 @@ public class EndpointService implements MainServiceRepository {
         } catch (final HttpClientErrorException e) {
             throw new BusinessException(e.getStatusCode(), e.getResponseBodyAsString());
         } catch (final ResourceAccessException e) {
-            throw new BusinessException(HttpStatus.SERVICE_UNAVAILABLE, "Unable to connect to main service. Please try again later");
+            throw new BusinessException(HttpStatus.SERVICE_UNAVAILABLE, "Unable to connect to main andrei.teplykh.service. Please try again later");
         }
         return null;
     }

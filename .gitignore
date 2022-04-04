@@ -1,8 +1,12 @@
 /target
 .idea
 
-/servlet-service/target
-/second-service/target
+/servlet-andrei.teplykh.service/target
+/second-andrei.teplykh.service/target
+/ejb/target
 
-/servlet-service/src/main/java/controllers/PersonController.java
-/servlet-service/src/main/java/controllers/CoordinatesController.java
+/ejb/ejb.iml
+/second-andrei.teplykh.service/second-andrei.teplykh.service.iml
+
+/servlet-andrei.teplykh.service/src/main/java/controllers/PersonController.java
+/servlet-andrei.teplykh.service/src/main/java/controllers/CoordinatesController.java
