@@ -5,7 +5,6 @@ import andrei.teplykh.dto.CoordinatesDto;
 
 import javax.ejb.Stateless;
 
-@Stateless
 public class CoordinatesMapper {
 
     public Coordinates dtoToEntity(final CoordinatesDto dto) {

@@ -4,7 +4,7 @@ import andrei.teplykh.dto.PersonDto;
 import andrei.teplykh.entity.Person;
 import andrei.teplykh.exception.BusinessException;
 import andrei.teplykh.mappers.PersonMapper;
-import andrei.teplykh.repository.PersonRepositoryImpl;
+import andrei.teplykh.repository.PersonRepository;
 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -18,12 +18,12 @@ import java.util.List;
 public class PersonServiceImpl implements PersonService {
 
     @Inject
-    private PersonRepositoryImpl personRepositoryImpl;
+    private PersonRepository personRepository;
 
     private PersonMapper personMapper = new PersonMapper();
 
     public List<PersonDto> getAll() {
-        final List<Person> persons = personRepositoryImpl.getAll();
+        final List<Person> persons = personRepository.getAll();
         final List<PersonDto> dtos = new ArrayList<>();
 
         for (Person person : persons) {
@@ -34,7 +34,7 @@ public class PersonServiceImpl implements PersonService {
 
     public void save(final PersonDto person) throws BusinessException {
         try {
-            personRepositoryImpl.save(personMapper.dtoToEntity(person));
+            personRepository.save(personMapper.dtoToEntity(person));
         } catch (final Exception e) {
             throw new BusinessException(Response.Status.BAD_REQUEST, e.getMessage());
         }

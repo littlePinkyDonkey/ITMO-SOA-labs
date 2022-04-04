@@ -6,7 +6,6 @@ import andrei.teplykh.dto.PersonDto;
 
 import javax.ejb.Stateless;
 
-@Stateless
 public class PersonMapper {
 
     public Person dtoToEntity(final PersonDto dto) {

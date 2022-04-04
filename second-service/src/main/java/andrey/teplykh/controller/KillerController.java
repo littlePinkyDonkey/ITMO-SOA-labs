@@ -4,6 +4,7 @@ import andrey.teplykh.dto.PersonDto;
 import andrey.teplykh.exception.BusinessException;
 import andrey.teplykh.service.KillerService;
 import lombok.AllArgsConstructor;
+import org.postgresql.util.PSQLException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,5 +44,10 @@ public class KillerController {
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity handle(final BusinessException e) {
         return ResponseEntity.status(e.getCode()).body(e.getMessage());
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity handle(final Exception e) {
+        return ResponseEntity.status(500).body(e.getMessage());
     }
 }

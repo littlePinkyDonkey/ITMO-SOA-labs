@@ -6,7 +6,7 @@ import andrei.teplykh.entity.enums.DragonCharacter;
 import andrei.teplykh.exception.BusinessException;
 import andrei.teplykh.exception.UserDataException;
 import andrei.teplykh.mappers.DragonMapper;
-import andrei.teplykh.repository.DragonRepositoryImpl;
+import andrei.teplykh.repository.DragonRepository;
 import andrei.teplykh.util.OperandInfo;
 import andrei.teplykh.util.tree.FilterBinaryTree;
 
@@ -21,7 +21,7 @@ import java.util.List;
 public class DragonServiceImpl implements DragonService {
 
     @Inject
-    private DragonRepositoryImpl dragonRepositoryImpl;
+    private DragonRepository dragonRepository;
 
     private DragonMapper dragonMapper = new DragonMapper();
 
@@ -44,9 +44,9 @@ public class DragonServiceImpl implements DragonService {
                 query = query.substring(0, query.length() - 5);
             }
 
-            dragons = dragonRepositoryImpl.getAll(filterBinaryTree.getParams(), query);
+            dragons = dragonRepository.getAll(filterBinaryTree.getParams(), query);
         } else {
-            dragons = dragonRepositoryImpl.getAll();
+            dragons = dragonRepository.getAll();
         }
 
         try {
@@ -62,14 +62,14 @@ public class DragonServiceImpl implements DragonService {
     public DragonDto save(final DragonDto request) throws BusinessException {
         final Dragon dragon = dragonMapper.dtoToEntity(request);
 
-        dragonRepositoryImpl.save(dragon);
+        dragonRepository.save(dragon);
 
         return dragonMapper.entityToDto(dragon);
     }
 
     @Override
     public DragonDto getDragonById(final Long id) throws BusinessException {
-        final Dragon dragon = dragonRepositoryImpl.getDragonById(id);
+        final Dragon dragon = dragonRepository.getDragonById(id);
 
         if (dragon != null) {
             return dragonMapper.entityToDto(dragon);
@@ -86,16 +86,16 @@ public class DragonServiceImpl implements DragonService {
         if (dragon.getKiller().getName() == null && dragon.getKiller().getEyeColor() == null && dragon.getKiller().getHairColor() == null) {
             dragon.setKiller(null);
         }
-        updatedValue = dragonMapper.entityToDto(dragonRepositoryImpl.updateElement(dragon));
+        updatedValue = dragonMapper.entityToDto(dragonRepository.updateElement(dragon));
 
         return updatedValue;
     }
 
     @Override
     public void removeElement(final Long id) throws UserDataException, BusinessException {
-        final Dragon dragon = dragonRepositoryImpl.getDragonById(id);
+        final Dragon dragon = dragonRepository.getDragonById(id);
 
-        final int removed = dragonRepositoryImpl.removeElement(id);
+        final int removed = dragonRepository.removeElement(id);
 
         if (removed == 0) {
             throw new UserDataException("No dragon with such id");
@@ -104,13 +104,13 @@ public class DragonServiceImpl implements DragonService {
 
     @Override
     public int removeElementByCharacter(final String character) throws BusinessException {
-        return dragonRepositoryImpl.removeElementByCharacter(DragonCharacter.valueOf(character));
+        return dragonRepository.removeElementByCharacter(DragonCharacter.valueOf(character));
     }
 
     @Override
     public Integer findSum() throws BusinessException {
         int sum = 0;
-        final List<Dragon> dragons = dragonRepositoryImpl.getAll();
+        final List<Dragon> dragons = dragonRepository.getAll();
 
         for (Dragon d : dragons) {
             sum += d.getAge();
@@ -121,6 +121,6 @@ public class DragonServiceImpl implements DragonService {
 
     @Override
     public DragonDto getWithMinId() throws BusinessException {
-        return dragonMapper.entityToDto(dragonRepositoryImpl.getWithMinId());
+        return dragonMapper.entityToDto(dragonRepository.getWithMinId());
     }
 }

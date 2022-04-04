@@ -1,7 +1,7 @@
 package andrei.teplykh.service;
 
 import andrei.teplykh.entity.Coordinates;
-import andrei.teplykh.repository.CoordinatesRepositoryIml;
+import andrei.teplykh.repository.CoordinatesRepository;
 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -13,15 +13,15 @@ import java.util.List;
 public class CoordinatesServiceImpl implements CoordinatesService {
 
     @Inject
-    private CoordinatesRepositoryIml coordinatesRepositoryIml;
+    private CoordinatesRepository coordinatesRepository;
 
     @Override
     public List<Coordinates> getAll() {
-        return coordinatesRepositoryIml.getAll();
+        return coordinatesRepository.getAll();
     }
 
     @Override
     public void save(final Coordinates coordinates) {
-        coordinatesRepositoryIml.save(coordinates);
+        coordinatesRepository.save(coordinates);
     }
 }

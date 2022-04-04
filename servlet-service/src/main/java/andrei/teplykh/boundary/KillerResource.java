@@ -23,7 +23,7 @@ public class KillerResource {
 
     public KillerResource() throws NamingException {
         Context context = new ContextProvider().getContext();
-        Object ref = context.lookup("pool:/ejb/DragonServiceImpl!andrei.teplykh.service.DragonService");
+        Object ref = context.lookup("ejb:/ejb-simple-jar-with-dependencies/PersonServiceImpl!andrei.teplykh.service.PersonService");
         this.service = (PersonService) PortableRemoteObject.narrow(ref, PersonService.class);
     }
 

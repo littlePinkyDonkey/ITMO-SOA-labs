@@ -9,14 +9,11 @@ import andrei.teplykh.dto.DragonDto;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-@Stateless
 public class DragonMapper {
 
-    @Inject
-    private CoordinatesMapper coordinatesMapper;
+    private CoordinatesMapper coordinatesMapper = new CoordinatesMapper();
 
-    @Inject
-    private PersonMapper personMapper;
+    private PersonMapper personMapper = new PersonMapper();
 
     public Dragon dtoToEntity(final DragonDto dto) {
         final Dragon dragon = Dragon.builder()
