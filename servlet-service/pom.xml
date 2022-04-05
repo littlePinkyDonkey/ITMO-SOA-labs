@@ -8,7 +8,7 @@
         <groupId>tsopa-labs</groupId>
         <version>1.0</version>
     </parent>
-    <artifactId>servlet-andrei.teplykh.service</artifactId>
+    <artifactId>servlet-service</artifactId>
     <packaging>war</packaging>
 
     <properties>

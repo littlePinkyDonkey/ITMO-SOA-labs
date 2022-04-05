@@ -1,12 +1,23 @@
 /target
 .idea
 
-/servlet-andrei.teplykh.service/target
-/second-andrei.teplykh.service/target
+/servlet-service/target
+/second-service/target
 /ejb/target
 
 /ejb/ejb.iml
-/second-andrei.teplykh.service/second-andrei.teplykh.service.iml
+/second-service/second-service.iml
 
 /servlet-andrei.teplykh.service/src/main/java/controllers/PersonController.java
 /servlet-andrei.teplykh.service/src/main/java/controllers/CoordinatesController.java
+
+*.txt
+*.png
+*.ico
+*.js
+*.ttf
+*.eot
+*.woff
+*.css
+*.html
+*.svg
